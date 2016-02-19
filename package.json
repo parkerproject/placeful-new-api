@@ -2,7 +2,7 @@
   "name": "placeful-api",
   "version": "0.0.0",
   "description": "groupenvy api",
-  "main": "server.js",
+  "main": "app.js",
   "engines": {
     "node": "5.6.0"
   },
