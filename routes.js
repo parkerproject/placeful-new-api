@@ -24,6 +24,10 @@ module.exports = function (server) {
     method: 'GET',
     path: '/promotions',
     config: controller.promotions.index
+  }, {
+    method: 'GET',
+    path: '/promotion',
+    config: controller.promotion.index
   }]
   return routeTable
 }
