@@ -28,6 +28,22 @@ module.exports = function (server) {
     method: 'GET',
     path: '/promotion',
     config: controller.promotion.index
+  }, {
+    method: 'GET',
+    path: '/places',
+    config: controller.places.index
+  }, {
+    method: 'GET',
+    path: '/place',
+    config: controller.place.index
+  }, {
+    method: 'PUT',
+    path: '/place/follow',
+    config: controller.follow.index
+  }, {
+    method: 'DELETE',
+    path: '/place/unfollow',
+    config: controller.unfollow.index
   }]
   return routeTable
 }
