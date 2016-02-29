@@ -60,7 +60,7 @@ module.exports = {
         key: Joi.string().required().description('API key to access data'),
         limit: Joi.number().integer().min(1).default(20).description('defaults to 20'),
         offset: Joi.number().integer().description('defaults to 0'),
-        geo: Joi.string().required().description('geo location of place, format should be geo=longitude,latitude')
+        geo: Joi.string().description('geo location of place, format should be geo=longitude,latitude')
       }
     }
 
