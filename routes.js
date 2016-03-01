@@ -29,13 +29,13 @@ module.exports = function (server) {
         path: '/promotion',
         config: controller.promotion.index
   }, {
+        method: 'PUT',
+        path: '/promotion/like',
+        config: controller.promotion_like.index
+  }, {
         method: 'GET',
         path: '/places',
         config: controller.places.index
-  }, {
-        method: 'GET',
-        path: '/places/follower',
-        config: controller.places_follower.index
   }, {
         method: 'GET',
         path: '/place',
@@ -56,6 +56,14 @@ module.exports = function (server) {
         method: 'PUT',
         path: '/interests/user',
         config: controller.interests_user.index
+  }, {
+        method: 'GET',
+        path: '/user/places',
+        config: controller.user_places.index
+  }, {
+        method: 'GET',
+        path: '/user/likes',
+        config: controller.user_likes.index
   }]
     return routeTable
 }
