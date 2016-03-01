@@ -48,6 +48,14 @@ module.exports = function (server) {
         method: 'DELETE',
         path: '/place/unfollow',
         config: controller.unfollow.index
+  }, {
+        method: 'GET',
+        path: '/interests',
+        config: controller.interests.index
+  }, {
+        method: 'PUT',
+        path: '/interests/user',
+        config: controller.interests_user.index
   }]
     return routeTable
 }
