@@ -41,6 +41,10 @@ module.exports = function (server) {
         path: '/place',
         config: controller.place.index
   }, {
+        method: 'GET',
+        path: '/place/promotions',
+        config: controller.place_promotions.index
+  }, {
         method: 'PUT',
         path: '/place/follow',
         config: controller.follow.index
