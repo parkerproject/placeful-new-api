@@ -60,6 +60,7 @@ module.exports = {
                 limit: Joi.number().integer().min(1).default(20).description('defaults to 20'),
                 offset: Joi.number().integer().description('defaults to 0'),
                 geo: Joi.string().description('geo location of promotion, format should be geo=longitude,latitude')
+                user_id: Joi.string().required().description('id of user, we use this to match the right promotions to user')
             }
         }
 
