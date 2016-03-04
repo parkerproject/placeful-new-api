@@ -68,6 +68,10 @@ module.exports = function (server) {
         method: 'GET',
         path: '/user/likes',
         config: controller.user_likes.index
+  }, {
+        method: 'GET',
+        path: '/notifications',
+        config: controller.notifications.index
   }]
     return routeTable
 }
