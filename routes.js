@@ -29,7 +29,7 @@ module.exports = function (server) {
     path: '/promotion',
     config: controller.promotion.index
   }, {
-    method: 'PUT',
+    method: 'POST',
     path: '/promotion/like',
     config: controller.promotion_like.index
   }, {
@@ -45,7 +45,7 @@ module.exports = function (server) {
     path: '/place/promotions',
     config: controller.place_promotions.index
   }, {
-    method: 'PUT',
+    method: 'POST',
     path: '/place/follow',
     config: controller.follow.index
   }, {
@@ -57,7 +57,7 @@ module.exports = function (server) {
     path: '/interests',
     config: controller.interests.index
   }, {
-    method: 'PUT',
+    method: 'POST',
     path: '/interests/user',
     config: controller.interests_user.index
   }, {
