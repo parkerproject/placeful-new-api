@@ -37,7 +37,9 @@ module.exports = {
     validate: {
       query: {
         key: Joi.string().required().description('API key to access data'),
-        user_id: Joi.string().required().description('id of user')
+        user_id: Joi.string().required().description('id of user'),
+        limit: Joi.number().integer().min(1).default(20).description('defaults to 20'),
+        offset: Joi.number().integer().description('defaults to 0')
       }
     }
 
