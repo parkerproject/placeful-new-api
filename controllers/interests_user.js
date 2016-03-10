@@ -3,6 +3,7 @@ const collections = ['interests']
 const mongojs = require('mongojs')
 const db = mongojs.connect(process.env.MONGODB_URL, collections)
 const Joi = require('joi')
+const _ = require('lodash')
 const interests = [
   'food',
   'drinks',
