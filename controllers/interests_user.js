@@ -3,6 +3,22 @@ const collections = ['interests']
 const mongojs = require('mongojs')
 const db = mongojs.connect(process.env.MONGODB_URL, collections)
 const Joi = require('joi')
+const interests = [
+  'food',
+  'drinks',
+  'party',
+  'trendy',
+  'culture',
+  'beauty',
+  'fitness',
+  'events',
+  'fashion',
+  'music',
+  'afterwork',
+  'wellness',
+  'comedy',
+  'datenight'
+]
 
 module.exports = {
   index: {
@@ -13,9 +29,9 @@ module.exports = {
         reply('You need an api key to access data')
       }
 
-      let unselected_interests = request.payload.unselected_interests
       let selected_interests = request.payload.selected_interests
       let user_id = request.payload.user_id
+      let unselected_interests = _.difference(interests, selected_interests)
 
       unselected_interests.forEach((interest) => {
         db.interests.update({
@@ -56,8 +72,7 @@ module.exports = {
     validate: {
       payload: {
         key: Joi.string().required().description('API key to access data'),
-        selected_interests: Joi.array().includes(Joi.string()).required().description('interests selected by user, should be an array'),
-        unselected_interests: Joi.array().includes(Joi.string()).required().description('interests unselected by user, should be an array'),
+        selected_interests: Joi.array().includes(Joi.string()).required().description('interests selected by user, should be an array, all in lowercase'),
         user_id: Joi.string().required().description('id of user')
       }
     }

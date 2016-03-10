@@ -30,13 +30,16 @@ module.exports = {
             $geometry: {
               type: 'Point',
               coordinates: [lng, lat]
-            },
+            }
             // $maxDistance: 16093.4 // 10 miles
           }
         }
       }
 
+      console.log(queryObject)
+
       db.merchants.count(queryObject, function (err, res) {
+        if (err) console.log(err)
         count = res
         db.merchants.find(queryObject).sort({
           business_name: 1
