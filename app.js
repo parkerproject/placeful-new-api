@@ -1,6 +1,7 @@
 const Hapi = require('hapi')
 const Inert = require('inert')
 const Vision = require('vision')
+const path = require('path')
 const HapiSwagger = require('hapi-swagger')
 const swaggerOptions = {
   apiVersion: '1.0.0'
@@ -12,6 +13,7 @@ server.connection({
 })
 
 const routes = require('./routes')(server)
+global.appRoot = path.resolve(__dirname)
 
 // Export the server to be required elsewhere.
 module.exports = server
