@@ -3,7 +3,6 @@ const collections = ['promotions']
 const mongojs = require('mongojs')
 const db = mongojs.connect(process.env.MONGODB_URL, collections)
 const Joi = require('joi')
-const _ = require('lodash')
 
 module.exports = {
   index: {
@@ -20,6 +19,23 @@ module.exports = {
       let skip = request.query.offset || 0
       let limit = request.query.limit || 20
       let count = 0
+
+      if (request.query.tab === 'today') {
+        queryObject.start_date = {
+          $lte: new Date().toISOString()
+        }
+
+        queryObject.end_date = {
+          $gte: new Date().toISOString()
+        }
+      }
+
+      if (request.query.tab === 'later') {
+        queryObject.end_date = {
+          $gt: new Date().toISOString()
+        }
+      }
+
       if (request.query.geo) {
         let lng = Number(request.query.geo.split(',')[0])
         let lat = Number(request.query.geo.split(',')[1])
@@ -62,7 +78,8 @@ module.exports = {
         limit: Joi.number().integer().min(1).default(20).description('defaults to 20'),
         offset: Joi.number().integer().description('defaults to 0'),
         geo: Joi.string().description('geo location of promotion, format should be geo=longitude,latitude'),
-        user_id: Joi.string().required().description('id of user, we use this to match the right promotions to user')
+        user_id: Joi.string().required().description('id of user, we use this to match the right promotions to user'),
+        tab: Joi.any().valid('today', 'later').required().description('should be today or later, e.g tab=today')
       }
     }
 
