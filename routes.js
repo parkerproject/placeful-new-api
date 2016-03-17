@@ -33,6 +33,10 @@ module.exports = function (server) {
     path: '/promotion/like',
     config: controller.promotion_like.index
   }, {
+    method: 'DELETE',
+    path: '/promotion/unlike',
+    config: controller.promotion_unlike.index
+  }, {
     method: 'GET',
     path: '/places',
     config: controller.places.index
