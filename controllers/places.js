@@ -10,13 +10,18 @@ module.exports = {
     handler: function (request, reply) {
       'use strict'
 
-      if (!request.query.key || request.query.key != process.env.API_KEY) {
+      if (!request.query.key || request.query.key !== process.env.API_KEY) {
         reply('You need an api key to access data')
       }
 
       // get user interests from parse and match with promotions tags
 
-      let queryObject = {}
+      let queryObject = {
+        business_id: {
+          $ne: 'b6lyhb1Hmq1X1RyZZWZH'
+        }
+      }
+
       let skip = request.query.offset || 0
       let limit = request.query.limit || 20
       let count = 0
@@ -36,14 +41,13 @@ module.exports = {
         }
       }
 
-      console.log(queryObject)
-
       db.merchants.count(queryObject, function (err, res) {
         if (err) console.log(err)
         count = res
         db.merchants.find(queryObject).sort({
           business_name: 1
         }).skip(skip).limit(limit, function (err, results) {
+          if (err) console.log(err)
           reply({
             results: results,
             total_amount: count
