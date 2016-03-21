@@ -13,7 +13,6 @@ module.exports = (phone, cb) => {
   let cleanPhone = phone.replace(/[^A-Z0-9]/ig, '')
 
   new Promise((resolve) => {
-
     yelp.phoneSearch({
       phone: cleanPhone
     }, (error, data) => {

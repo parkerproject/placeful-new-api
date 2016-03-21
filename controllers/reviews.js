@@ -13,7 +13,7 @@ module.exports = {
 
       if (request.query.phone) {
         foursquare(request.query.merchant_name, (fReviews) => {
-          yelp(request.query.phone, (yReviews) => {
+          yelp(decodeURIComponent(request.query.phone), (yReviews) => {
             reply({
               yelp: yReviews,
               foursquare: fReviews
