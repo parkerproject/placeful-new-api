@@ -4,6 +4,11 @@ const mongojs = require('mongojs')
 const db = mongojs.connect(process.env.MONGODB_URL, collections)
 const Joi = require('joi')
 
+// var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+// let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+//
+// let day = days[new Date().getDay()]
+
 module.exports = {
   index: {
     handler: function (request, reply) {
@@ -13,7 +18,7 @@ module.exports = {
         reply('You need an api key to access data')
       }
 
-      // get user interests from parse and match with promotions tags
+      // get user interests and match with promotions tags
 
       let queryObject = {}
       let skip = request.query.offset || 0

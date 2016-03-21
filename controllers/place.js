@@ -3,7 +3,6 @@ const collections = ['merchants', 'promotions']
 const mongojs = require('mongojs')
 const db = mongojs.connect(process.env.MONGODB_URL, collections)
 const Joi = require('joi')
-const _ = require('lodash')
 
 module.exports = {
   index: {
@@ -20,7 +19,10 @@ module.exports = {
         if (err) console.log(err)
         db.promotions.find({}).limit(1, (err, promos) => {
           if (err) console.log(err)
-          result[0].large_image = promos[0].large_image
+
+          if (result.length !== 0 && promos.length !== 0) {
+            result[0].large_image = promos[0].large_image
+          }
           reply(result)
         })
       })

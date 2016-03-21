@@ -7,8 +7,7 @@ const Joi = require('joi')
 module.exports = {
   index: {
     handler: (request, reply) => {
-
-      if (!request.query.key || request.query.key != process.env.API_KEY) {
+      if (!request.query.key || request.query.key !== process.env.API_KEY) {
         reply('You need an api key to access data')
       }
 
