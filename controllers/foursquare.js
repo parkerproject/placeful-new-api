@@ -1,9 +1,9 @@
 'use strict'
 require('dotenv').load()
-
 const qs = require('querystring')
 const request = require('request')
 const baseUrl = 'https://api.foursquare.com/v2/venues/search?'
+const _ = require('lodash')
 
 module.exports = function (merchant, cb) {
   let url = baseUrl + qs.stringify({
@@ -36,6 +36,7 @@ module.exports = function (merchant, cb) {
             if (error) console.log(error)
             if (!error && response.statusCode == 200) {
               let tips = JSON.parse(body).response.tips.items
+              tips = _.take(tips, 4)
               resolve(tips) // Show the HTML for the Google homepage.
             }
           })
