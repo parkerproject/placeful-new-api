@@ -11,14 +11,24 @@ module.exports = {
         reply('You need an api key to access data')
       }
 
-      foursquare(request.query.merchant_name, (fReviews) => {
-        yelp(request.query.phone, (yReviews) => {
+      if (request.query.phone) {
+        foursquare(request.query.merchant_name, (fReviews) => {
+          yelp(request.query.phone, (yReviews) => {
+            reply({
+              yelp: yReviews,
+              foursquare: fReviews
+            })
+          })
+        })
+      } else {
+        foursquare(request.query.merchant_name, (fReviews) => {
           reply({
-            yelp: yReviews,
+            yelp: [],
             foursquare: fReviews
           })
         })
-      })
+      }
+
     },
 
     description: 'get reviews for a place',
@@ -28,7 +38,7 @@ module.exports = {
     validate: {
       query: {
         key: Joi.string().required().description('API key to access data'),
-        phone: Joi.string().required().description('phone of place'),
+        phone: Joi.string().description('phone of place'),
         merchant_name: Joi.string().required().description('name of place')
       }
     }
