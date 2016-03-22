@@ -96,6 +96,10 @@ module.exports = function (server) {
     method: 'POST',
     path: '/email/welcome',
     config: controller.email.welcome
+  }, {
+    method: 'POST',
+    path: '/email/ticket',
+    config: controller.email.ticket
   }]
   return routeTable
 }
