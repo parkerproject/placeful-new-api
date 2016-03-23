@@ -23,7 +23,7 @@ module.exports = {
             throw err
           }
           sendEmail(email, subject, content)
-          reply('Email sent')
+          reply({message: 'Email sent'})
         })
 
     },
@@ -57,7 +57,7 @@ module.exports = {
             throw err
           }
           sendEmail(email, subject, content)
-          reply('Email sent')
+          reply({message: 'Email sent'})
         })
 
     },
