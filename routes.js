@@ -30,6 +30,10 @@ module.exports = function (server) {
     config: controller.filter.index
   }, {
     method: 'GET',
+    path: '/categories',
+    config: controller.categories.index
+  }, {
+    method: 'GET',
     path: '/promotion',
     config: controller.promotion.index
   }, {

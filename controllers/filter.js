@@ -26,24 +26,8 @@ module.exports = {
       let count = 0
       let categories = [ 'Food & Drinks', 'Health & Beauty', 'Events & Activities', 'Shopping']
 
-      if (request.query.tab === 'today') {
-        queryObject.start_date = {
-          $lte: new Date().toISOString()
-        }
-
-        queryObject.end_date = {
-          $gte: new Date().toISOString()
-        }
-      }
-
-      if (request.query.tab === 'later') {
-        queryObject.end_date = {
-          $gt: new Date().toISOString()
-        }
-      }
-
-      if (request.query.category_id) {
-        queryObject.merchant_category = categories[request.query.category_id]
+      if (request.query.cat_id) {
+        queryObject.merchant_category = categories[request.query.cat_id]
       }
 
       if (request.query.geo) {
@@ -73,7 +57,6 @@ module.exports = {
         })
 
       })
-
     },
 
     description: 'Filter promotions',
@@ -87,7 +70,7 @@ module.exports = {
         offset: Joi.number().integer().description('defaults to 0'),
         geo: Joi.string().description('geo location of promotion, format should be geo=longitude,latitude'),
         user_id: Joi.string().required().description('id of user, we use this to match the right promotions to user'),
-        category_id: Joi.string().required().description('category_id of promotion, e.g Food & Drinks=0, Health & Beauty=1, Events & Activities=2, Shopping=3')
+        cat_id: Joi.string().required().description('category_id of promotion, you can find this value in {/categories} endpoint')
       }
     }
 
