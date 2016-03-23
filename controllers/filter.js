@@ -91,7 +91,7 @@ module.exports = {
         offset: Joi.number().integer().description('defaults to 0'),
         geo: Joi.string().description('geo location of promotion, format should be geo=longitude,latitude'),
         user_id: Joi.string().required().description('id of user, we use this to match the right promotions to user'),
-        category_id: Joi.string().required().description('category_id of promotion, e.g Food & Drinks=0, Health, Beauty & Fitness=1, Events & Activities=3, Services=4, Shopping=5')
+        category_id: Joi.string().required().description('category_id of promotion, e.g Food & Drinks=0, Health, Beauty & Fitness=1, Events & Activities=2, Services=3, Shopping=4')
       }
     }
 
