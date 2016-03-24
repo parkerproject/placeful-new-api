@@ -25,6 +25,12 @@ module.exports = {
       let limit = request.query.limit || 20
       let count = 0
 
+      let categories = [ 'Food & Drinks', 'Health & Beauty', 'Events & Activities', 'Shopping']
+
+      if (request.query.cat_id) {
+        queryObject.merchant_category = categories[request.query.cat_id]
+      }
+
       if (request.query.tab === 'today') {
         queryObject.start_date = {
           $lte: new Date().toISOString()
@@ -51,7 +57,7 @@ module.exports = {
               type: 'Point',
               coordinates: [lng, lat]
             }
-            // $maxDistance: 16093.4 // 10 miles
+          // $maxDistance: 16093.4 // 10 miles
           }
         }
       }
@@ -84,7 +90,8 @@ module.exports = {
         offset: Joi.number().integer().description('defaults to 0'),
         geo: Joi.string().description('geo location of promotion, format should be geo=longitude,latitude'),
         user_id: Joi.string().required().description('id of user, we use this to match the right promotions to user'),
-        tab: Joi.any().valid('today', 'later').required().description('should be today or later, e.g tab=today')
+        tab: Joi.any().valid('today', 'later').required().description('should be today or later, e.g tab=today'),
+        cat_id: Joi.string().description('category_id of promotion, you can find this value in {/categories} endpoint')
       }
     }
 

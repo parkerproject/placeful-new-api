@@ -26,10 +26,6 @@ module.exports = function (server) {
     config: controller.promotions.index
   }, {
     method: 'GET',
-    path: '/promotions/filter',
-    config: controller.filter.index
-  }, {
-    method: 'GET',
     path: '/categories',
     config: controller.categories.index
   }, {
