@@ -17,7 +17,7 @@ module.exports = {
           item_id: request.query.notification_id
         }, (err, result) => {
           if (err) console.log(err)
-          let createdDateOfNotification = result[0].date_created
+          let createdDateOfNotification = (result[0] != null) ? result[0].date_created : ''
           db.notifications.find({
             date_created: {
               $gt: createdDateOfNotification
