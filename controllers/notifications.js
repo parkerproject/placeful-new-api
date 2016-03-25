@@ -20,7 +20,7 @@ module.exports = {
       db.notifications.count({}, (err, res) => {
         if (err) console.log(err)
         count = res
-        db.notifications.find({}).skip(skip).limit(limit, (err, results) => {
+        db.notifications.find({}).sort({_id: -1}).skip(skip).limit(limit, (err, results) => {
           if (err) console.log(err)
           reply({
             results: results,
@@ -39,7 +39,8 @@ module.exports = {
         key: Joi.string().required().description('API key to access data'),
         user_id: Joi.string().required().description('id of user'),
         limit: Joi.number().integer().min(1).default(20).description('defaults to 20'),
-        offset: Joi.number().integer().description('defaults to 0')
+        offset: Joi.number().integer().description('defaults to 0'),
+        notification_id: Joi.string().description('notification')
       }
     }
 
