@@ -40,7 +40,7 @@ module.exports = {
         user_id: Joi.string().required().description('id of user'),
         limit: Joi.number().integer().min(1).default(20).description('defaults to 20'),
         offset: Joi.number().integer().description('defaults to 0'),
-        notification_id: Joi.string().description('notification')
+        notification_id: Joi.string().description('notification id')
       }
     }
 
