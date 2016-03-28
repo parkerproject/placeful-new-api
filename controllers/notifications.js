@@ -22,6 +22,8 @@ module.exports = {
             date_created: {
               $gt: createdDateOfNotification
             }
+          }).sort({
+            date_created: -1
           }, (err, data) => {
             if (err) console.log(err)
             reply({
@@ -32,7 +34,7 @@ module.exports = {
         })
       } else {
         db.notifications.find({}).sort({
-          _id: -1
+          date_created: -1
         }).skip(skip).limit(limit, (err, results) => {
           if (err) console.log(err)
           reply({
