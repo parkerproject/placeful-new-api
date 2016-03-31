@@ -106,6 +106,10 @@ module.exports = function (server) {
     method: 'POST',
     path: '/email/ticket',
     config: controller.email.ticket
+  }, {
+    method: 'GET',
+    path: '/areas',
+    config: controller.areas.index
   }]
   return routeTable
 }
