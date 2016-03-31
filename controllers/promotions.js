@@ -3,86 +3,67 @@ const collections = ['promotions']
 const mongojs = require('mongojs')
 const db = mongojs.connect(process.env.MONGODB_URL, collections)
 const Joi = require('joi')
-
-// var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-// let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-//
-// let day = days[new Date().getDay()]
-
+  // var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+  // let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+  //
+  // let day = days[new Date().getDay()]
 module.exports = {
   index: {
     handler: function (request, reply) {
       'use strict'
-
-      if (!request.query.key || request.query.key != process.env.API_KEY) {
+      if (!request.query.key || request.query.key !== process.env.API_KEY) {
         reply('You need an api key to access data')
       }
-
       // get user interests and match with promotions tags
-
       let queryObject = {}
       let skip = request.query.offset || 0
       let limit = request.query.limit || 20
       let count = 0
-
-      let categories = [ 'Food & Drinks', 'Health & Beauty', 'Events & Activities', 'Shopping']
-
+      let categories = ['Food & Drinks', 'Health & Beauty', 'Events & Activities', 'Shopping']
       if (request.query.cat_id) {
         queryObject.merchant_category = categories[request.query.cat_id]
       }
-
       if (request.query.tab === 'today') {
         queryObject.start_date = {
           $lte: new Date().toISOString()
         }
-
         queryObject.end_date = {
           $gte: new Date().toISOString()
         }
       }
-
       if (request.query.tab === 'later') {
         queryObject.end_date = {
           $gt: new Date().toISOString()
         }
       }
-
       if (request.query.geo) {
         let lng = Number(request.query.geo.split(',')[0])
         let lat = Number(request.query.geo.split(',')[1])
-
         queryObject.loc = {
           $near: {
             $geometry: {
               type: 'Point',
               coordinates: [lng, lat]
             }
-          // $maxDistance: 16093.4 // 10 miles
+            // $maxDistance: 16093.4 // 10 miles
           }
         }
       }
-
       db.promotions.count(queryObject, function (err, res) {
         if (err) console.log(err)
         count = res
-        db.promotions.find(queryObject).sort({
-          start_date: 1
-        }).skip(skip).limit(limit, function (err, results) {
+        db.promotions.find(queryObject).skip(skip).limit(limit, function (err, results) {
           if (err) console.log(err)
           reply({
             results: results,
             total_amount: count
           })
         })
-
       })
-
     },
-
     description: 'View promotions',
     notes: 'view promotions',
     tags: ['api'],
-
     validate: {
       query: {
         key: Joi.string().required().description('API key to access data'),
@@ -94,7 +75,5 @@ module.exports = {
         cat_id: Joi.string().description('category_id of promotion, you can find this value in {/categories} endpoint')
       }
     }
-
   }
-
 }
