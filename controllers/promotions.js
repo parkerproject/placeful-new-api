@@ -7,6 +7,7 @@ const Joi = require('joi')
   // let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
   //
   // let day = days[new Date().getDay()]
+  // const areas = ['All New York', 'Astoria', 'Brooklyn', 'Chelsea', 'East Village', 'Financial District', 'Flatiron', 'Gramercy', 'Greenwich Village', "Hell's Kitchen", 'Kips Bay', 'Lower East Side', 'Meatpacking District', 'Midtown East', 'Midtown West', 'Murray Hill', 'NoHo', 'Nolita', 'Park Slope', 'Queens', 'SoHo', 'Theater District', 'TriBeCa', 'Union Square', 'Upper East Side', 'Upper West Side', 'West Village', 'Williamsburg']
 module.exports = {
   index: {
     handler: function (request, reply) {
@@ -22,6 +23,10 @@ module.exports = {
       let categories = ['Food & Drinks', 'Health & Beauty', 'Events & Activities', 'Shopping']
       if (request.query.cat_id) {
         queryObject.merchant_category = categories[request.query.cat_id]
+      }
+      if (request.query.merchant_locality) {
+        let area = new RegExp(decodeURIComponent(request.query.merchant_locality), 'i')
+        queryObject.merchant_locality = area
       }
       if (request.query.tab === 'today') {
         queryObject.start_date = {
@@ -72,7 +77,8 @@ module.exports = {
         geo: Joi.string().description('geo location of promotion, format should be geo=longitude,latitude'),
         user_id: Joi.string().required().description('id of user, we use this to match the right promotions to user'),
         tab: Joi.any().valid('today', 'later').required().description('should be today or later, e.g tab=today'),
-        cat_id: Joi.string().description('category_id of promotion, you can find this value in {/categories} endpoint')
+        cat_id: Joi.string().description('category_id of promotion, you can find this value in {/categories} endpoint'),
+        merchant_locality: Joi.string().description('where promotion is taking place')
       }
     }
   }
