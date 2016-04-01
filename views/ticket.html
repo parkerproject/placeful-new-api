@@ -20,33 +20,6 @@
       line-height: 1.6;
     }
     
-    @import url(http://fonts.googleapis.com/css?family=Raleway:700);
-    @import url(http://fonts.googleapis.com/css?family=Yeseva+One);
-    @import url(http://fonts.googleapis.com/css?family=Loved+by+the+King);
-    .ticket {
-      width: 280px;
-      padding: 40px;
-      margin: 10px auto;
-      background: #F4B956;
-      position: relative;
-    }
-    
-    .top-left {
-      float: left;
-      font-family: courier;
-    }
-    
-    .top-center {
-      text-align: center;
-      font-family: 'Yeseva One';
-      font-size: 26px;
-    }
-    
-    .top-right {
-      float: right;
-      font-family: courier;
-    }
-    
     hr {
       border: none;
       border-bottom: 1px solid #000;
@@ -61,25 +34,6 @@
       text-align: center;
       margin-top: 0;
       margin-bottom: 0;
-    }
-    
-    .for-the-ceremony {
-      text-align: center;
-      font-family: courier;
-      text-transform: uppercase;
-      margin-top: 0;
-      font-size: 12px;
-      letter-spacing: 1px;
-    }
-    
-    .on-the-date {
-      font-family: serif;
-      font-size: 8px;
-      text-transform: uppercase;
-      display: inline-block;
-      width: 30%;
-      letter-spacing: 2px;
-      vertical-align: bottom;
     }
     
     .ceremony-date {
@@ -146,18 +100,18 @@
       text-align: center;
       width: 20%;
     }
-    
-    @media only screen and (max-width: 640px) {}
   </style>
 </head>
 
 <body style="-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;height: 100%;line-height: 1.6;width: 100% !important;">
   <center><img src="https://dl.dropbox.com/s/alfuz34tyuiio5t/placeful-logo.png?dl=0" width="150" style="max-width: 100%;"></center>
-  <div class="ticket">
+  <div class="ticket" style="width: 280px;padding: 40px;margin: 10px auto;background-color: #F4B956;position: relative;">
     <header>
       <span class="top-left" style="float: left;font-family: courier;">20</span><span class="top-right" style="float: right;font-family: courier;">16</span>
 
       <div class="top-center" style="text-align: center;font-family: 'Yeseva One';font-size: 26px;">
+        <span class="on-the-date" style="font-family: serif;font-size: 8px;text-transform: uppercase;display: inline-block;width: 30%;letter-spacing: 2px;vertical-align: bottom;">Ticket ID</span>
+        <br />
         <span>{{data.ticket_id}}</span>
       </div>
     </header>
@@ -174,7 +128,7 @@
 
     <p class="for-the-ceremony" style="text-align: center;font-family: courier;text-transform: uppercase;margin-top: 0;font-size: 12px;letter-spacing: 1px;">{{data.address}}</p>
 
-    <span class="on-the-date" style="font-family: serif;font-size: 8px;text-transform: uppercase;display: inline-block;width: 30%;letter-spacing: 2px;vertical-align: bottom;">on the date:</span><span class="ceremony-date" style="border-bottom: 1px solid #000;display: inline-block;width: 70%;color: #FF4136;"><date style="color: red;text-transform: uppercase;font-family: courier;letter-spacing: 4px;display: block;">{{data.date}}</date></span>
+    <span class="on-the-date" style="font-family: serif;font-size: 8px;text-transform: uppercase;display: inline-block;width: 30%;letter-spacing: 2px;vertical-align: bottom;">on the date:</span><span class="ceremony-date" style="border-bottom: 1px solid #000;display: inline-block;width: 70%;color: #FF4136;"><date style="color: red;text-transform: uppercase;font-family: courier;letter-spacing: 4px;display: block;">{{data.start_date}} - {{data.end_date}}<br /> {{data.start_time}} - {{data.end_time}}</date></span>
 
     <table class="table" style="font-family: 'Raleway';font-size: 12px;border: 1px solid #000;margin-top: 20px;text-transform: uppercase;letter-spacing: 1px;border-collapse: collapse;">
       <tr style="border-bottom: 1px solid #000;height: 30px;">
@@ -182,7 +136,7 @@
         <td class="attend" style="padding: 5px;text-align: center;width: 20%;border-right: 1px solid #000;">Will Attend</td>
       </tr>
       <tr style="border-bottom: 1px solid #000;height: 30px;">
-        <td class="td-name" style="padding: 0;border-right: 1px solid #000;"><b>&nbsp;&nbsp;{{data.name}}</b></td>
+        <td class="td-name" style="padding: 0;border-right: 1px solid #000;"><b>&nbsp;&nbsp;{{data.person_name}}</b></td>
         <td class="td-attending" style="padding: 5px;text-align: center;border-right: 1px solid #000;"><b>Yes</b></td>
       </tr>
 

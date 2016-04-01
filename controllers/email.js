@@ -40,9 +40,8 @@ module.exports = {
       if (!request.payload.key || request.payload.key !== process.env.API_KEY) {
         reply('You need an api key to access data')
       }
-      let subject = 'You joined a ticket'
+      let subject = `${request.payload.merchant_name}: Placeful booking confirmation (#${request.payload.ticket_id})`
       let email = request.payload.email
-      console.log(request.payload)
       swig.renderFile(appRoot + '/views/ticket.html', {
         data: request.payload
       }, function (err, content) {
@@ -64,10 +63,14 @@ module.exports = {
         email: Joi.string().required().description('email of user'),
         ticket_id: Joi.string().required().description('id of ticket'),
         title: Joi.string().required().description('title of ticket'),
-        name: Joi.string().required().description('name of user on ticket'),
-        date: Joi.string().required().description('date on ticket'),
+        person_name: Joi.string().required().description('name of user on ticket'),
+        start_date: Joi.string().required().description('ticket start date'),
+        end_date: Joi.string().required().description('ticket end date'),
         address: Joi.string().required().description('address on ticket'),
-        fine_print: Joi.string().required().description('fine details on ticket')
+        fine_print: Joi.string().required().description('fine details on ticket'),
+        merchant_name: Joi.string().required().description('name of place'),
+        start_time: Joi.string().required().description('start time of promotion'),
+        end_time: Joi.string().required().description('end time of promotion')
       }
     }
   }
