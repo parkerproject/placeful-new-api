@@ -24,7 +24,7 @@ module.exports = {
       if (request.query.cat_id) {
         queryObject.merchant_category = categories[request.query.cat_id]
       }
-      if (request.query.merchant_locality) {
+      if (request.query.merchant_locality && request.query.merchant_locality !== 'All') {
         let area = new RegExp(decodeURIComponent(request.query.merchant_locality), 'i')
         queryObject.merchant_locality = area
       }
