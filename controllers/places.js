@@ -4,32 +4,25 @@ const mongojs = require('mongojs')
 const db = mongojs.connect(process.env.MONGODB_URL, collections)
 const Joi = require('joi')
 const _ = require('lodash')
-
 module.exports = {
   index: {
     handler: function (request, reply) {
       'use strict'
-
       if (!request.query.key || request.query.key !== process.env.API_KEY) {
         reply('You need an api key to access data')
       }
-
       // get user interests from parse and match with promotions tags
-
       let queryObject = {
         business_id: {
-          $ne: 'b6lyhb1Hmq1X1RyZZWZH'
+          $ne: 'dv8ySTnrbuB5nEEufY9p'
         }
       }
-
       let skip = request.query.offset || 0
       let limit = request.query.limit || 20
       let count = 0
-
       if (request.query.geo) {
         let lng = Number(request.query.geo.split(',')[0])
         let lat = Number(request.query.geo.split(',')[1])
-
         queryObject.loc = {
           $near: {
             $geometry: {
@@ -40,7 +33,6 @@ module.exports = {
           }
         }
       }
-
       db.merchants.count(queryObject, function (err, res) {
         if (err) console.log(err)
         count = res
@@ -53,15 +45,11 @@ module.exports = {
             total_amount: count
           })
         })
-
       })
-
     },
-
     description: 'View places',
     notes: 'view places',
     tags: ['api'],
-
     validate: {
       query: {
         key: Joi.string().required().description('API key to access data'),
@@ -70,7 +58,5 @@ module.exports = {
         geo: Joi.string().description('geo location of place, format should be geo=longitude,latitude')
       }
     }
-
   }
-
 }
