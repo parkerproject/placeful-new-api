@@ -3,7 +3,7 @@ const collections = ['promotions']
 const mongojs = require('mongojs')
 const db = mongojs.connect(process.env.MONGODB_URL, collections)
 const Joi = require('joi')
-  // var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
   // let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
   //
   // let day = days[new Date().getDay()]
@@ -20,6 +20,7 @@ module.exports = {
       let skip = request.query.offset || 0
       let limit = request.query.limit || 20
       let count = 0
+      let day = days[new Date().getDay()]
       let categories = ['Food & Drinks', 'Health & Beauty', 'Events & Activities', 'Shopping']
       if (request.query.cat_id) {
         queryObject.merchant_category = categories[request.query.cat_id]
@@ -35,6 +36,7 @@ module.exports = {
         queryObject.end_date = {
           $gte: new Date().toISOString()
         }
+        queryObject.days = new RegExp(day, 'i')
       }
       if (request.query.tab === 'later') {
         queryObject.end_date = {
