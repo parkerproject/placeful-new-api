@@ -16,12 +16,16 @@ module.exports = {
         reply('You need an api key to access data')
       }
       // get user interests and match with promotions tags
-      let queryObject = {}
       let skip = request.query.offset || 0
       let limit = request.query.limit || 20
       let count = 0
       let day = days[new Date().getDay()]
       let categories = ['Food & Drinks', 'Health & Beauty', 'Events & Activities', 'Shopping']
+      let queryObject = {
+        merchant_id: {
+          $nin: ['pcCxqeV5C5O6OtpEqMhw'] // filter out promos by demo
+        }
+      }
       if (request.query.cat_id) {
         queryObject.merchant_category = categories[request.query.cat_id]
       }

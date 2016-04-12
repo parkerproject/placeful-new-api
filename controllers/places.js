@@ -14,7 +14,7 @@ module.exports = {
       // get user interests from parse and match with promotions tags
       let queryObject = {
         business_id: {
-          $ne: 'dv8ySTnrbuB5nEEufY9p'
+          $nin: ['dv8ySTnrbuB5nEEufY9p', 'pcCxqeV5C5O6OtpEqMhw'] // filter demo and admin places
         }
       }
       let skip = request.query.offset || 0
