@@ -41,11 +41,11 @@ module.exports = {
           $lte: new Date().toISOString()
         }
         queryObject.end_date = {
-          $gte: new Date().toISOString()
-        }
-        queryObject.endTimeString = {
-          $gt: currentTime
-        }
+            $gte: new Date().toISOString()
+          }
+          // queryObject.endTimeString = {
+          //   $gt: currentTime
+          // }
         queryObject.days = new RegExp(day, 'i')
       }
       if (request.query.tab === 'later') {
