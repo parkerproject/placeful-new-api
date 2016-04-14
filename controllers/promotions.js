@@ -23,7 +23,7 @@ module.exports = {
       let day = days[new Date().getDay()]
       let categories = ['Food & Drinks', 'Health & Beauty', 'Events & Activities', 'Shopping']
       let currentTime = new moment()
-      currentTime = now.format('HH:mm')
+      currentTime = currentTime.format('HH:mm')
       let queryObject = {
         merchant_id: {
           $nin: ['pcCxqeV5C5O6OtpEqMhw'] // filter out promos by demo
