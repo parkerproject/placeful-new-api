@@ -3,6 +3,7 @@ const collections = ['promotions']
 const mongojs = require('mongojs')
 const db = mongojs.connect(process.env.MONGODB_URL, collections)
 const Joi = require('joi')
+const moment = require('moment')
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
   // let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
   //
@@ -21,6 +22,8 @@ module.exports = {
       let count = 0
       let day = days[new Date().getDay()]
       let categories = ['Food & Drinks', 'Health & Beauty', 'Events & Activities', 'Shopping']
+      let currentTime = new moment()
+      currentTime = now.format('HH:mm')
       let queryObject = {
         merchant_id: {
           $nin: ['pcCxqeV5C5O6OtpEqMhw'] // filter out promos by demo
@@ -39,6 +42,9 @@ module.exports = {
         }
         queryObject.end_date = {
           $gte: new Date().toISOString()
+        }
+        queryObject.endTimeString = {
+          $gt: currentTime
         }
         queryObject.days = new RegExp(day, 'i')
       }
