@@ -3,12 +3,12 @@ const collections = ['promotions']
 const mongojs = require('mongojs')
 const db = mongojs.connect(process.env.MONGODB_URL, collections)
 const Joi = require('joi')
-const moment = require('moment')
+const Moment = require('moment')
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-  // let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-  //
-  // let day = days[new Date().getDay()]
-  // const areas = ['All New York', 'Astoria', 'Brooklyn', 'Chelsea', 'East Village', 'Financial District', 'Flatiron', 'Gramercy', 'Greenwich Village', "Hell's Kitchen", 'Kips Bay', 'Lower East Side', 'Meatpacking District', 'Midtown East', 'Midtown West', 'Murray Hill', 'NoHo', 'Nolita', 'Park Slope', 'Queens', 'SoHo', 'Theater District', 'TriBeCa', 'Union Square', 'Upper East Side', 'Upper West Side', 'West Village', 'Williamsburg']
+// let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+//
+// let day = days[new Date().getDay()]
+// const areas = ['All New York', 'Astoria', 'Brooklyn', 'Chelsea', 'East Village', 'Financial District', 'Flatiron', 'Gramercy', 'Greenwich Village', "Hell's Kitchen", 'Kips Bay', 'Lower East Side', 'Meatpacking District', 'Midtown East', 'Midtown West', 'Murray Hill', 'NoHo', 'Nolita', 'Park Slope', 'Queens', 'SoHo', 'Theater District', 'TriBeCa', 'Union Square', 'Upper East Side', 'Upper West Side', 'West Village', 'Williamsburg']
 module.exports = {
   index: {
     handler: function (request, reply) {
@@ -22,7 +22,7 @@ module.exports = {
       let count = 0
       let day = days[new Date().getDay()]
       let categories = ['Food & Drinks', 'Health & Beauty', 'Events & Activities', 'Shopping']
-      let currentTime = new moment()
+      let currentTime = new Moment()
       currentTime = currentTime.format('HH:mm')
       let queryObject = {
         merchant_id: {
@@ -30,7 +30,8 @@ module.exports = {
         }
       }
       if (request.query.cat_id) {
-        queryObject.merchant_category = categories[request.query.cat_id]
+        let selectedCategory = new RegExp(categories[request.query.cat_id], 'i')
+        queryObject.merchant_category = { $in: [selectedCategory]}
       }
       if (request.query.merchant_locality && request.query.merchant_locality !== 'All') {
         let area = new RegExp(decodeURIComponent(request.query.merchant_locality), 'i')
@@ -41,11 +42,11 @@ module.exports = {
           $lte: new Date().toISOString()
         }
         queryObject.end_date = {
-            $gte: new Date().toISOString()
-          }
-          // queryObject.endTimeString = {
-          //   $gt: currentTime
-          // }
+          $gte: new Date().toISOString()
+        }
+        // queryObject.endTimeString = {
+        //   $gt: currentTime
+        // }
         queryObject.days = new RegExp(day, 'i')
       }
       if (request.query.tab === 'later') {
@@ -62,7 +63,7 @@ module.exports = {
               type: 'Point',
               coordinates: [lng, lat]
             }
-            // $maxDistance: 16093.4 // 10 miles
+          // $maxDistance: 16093.4 // 10 miles
           }
         }
       }
