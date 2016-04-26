@@ -17,11 +17,13 @@ module.exports = (phone, cb) => {
       phone: cleanPhone
     }, (error, data) => {
       if (error) console.log(error)
-      if (data.businesses[0] != null) {
+      if (data.businesses.length !== 0) {
         yelp.business(data.businesses[0].id, (err, data) => {
           if (err) console.log(error)
           resolve(data.reviews[0])
         })
+      } else {
+        resolve([])
       }
     })
 

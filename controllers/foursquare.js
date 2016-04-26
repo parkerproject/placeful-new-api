@@ -17,7 +17,7 @@ module.exports = function (merchant, cb) {
 
     request(url, (error, response, body) => {
       if (error) console.log(error)
-      if (!error && response.statusCode == 200) {
+      if (!error && response.statusCode === 200) {
         if (JSON.parse(body).response.venues[0] != null) {
           let venueId = JSON.parse(body).response.venues[0].id
 
@@ -33,14 +33,13 @@ module.exports = function (merchant, cb) {
 
           request(tipsUrl, (error, response, body) => {
             if (error) console.log(error)
-            if (!error && response.statusCode == 200) {
+            if (!error && response.statusCode === 200) {
               let tips = JSON.parse(body).response.tips.items
               resolve(tips) // Show the HTML for the Google homepage.
             }
           })
-
         } else {
-          resolve()
+          resolve([])
         }
 
       }

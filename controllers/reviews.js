@@ -28,9 +28,7 @@ module.exports = {
           })
         })
       }
-
     },
-
     description: 'get reviews for a place',
     notes: 'get reviews for a place',
     tags: ['api'],
