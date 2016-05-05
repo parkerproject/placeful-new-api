@@ -39,10 +39,10 @@ module.exports = {
       }
       if (request.query.tab === 'today') {
         queryObject.start_date = {
-          $lte: currentTime.format() // new Date().toISOString()
+          $lte: new Date().toISOString()
         }
         queryObject.end_date = {
-          $gte: currentTime.format() // new Date().toISOString()
+          $gte: new Date().toISOString()
         }
         // queryObject.endTimeString = {
         //   $gt: currentTime
@@ -51,7 +51,7 @@ module.exports = {
       }
       if (request.query.tab === 'later') {
         queryObject.end_date = {
-          $gt: currentTime.format() // new Date().toISOString()
+          $gt: new Date().toISOString()
         }
       }
       if (request.query.geo) {
