@@ -1,5 +1,5 @@
 require('dotenv').load()
-const collections = ['merchants']
+const collections = ['merchants', 'promotions']
 const mongojs = require('mongojs')
 const db = mongojs.connect(process.env.MONGODB_URL, collections)
 const Joi = require('joi')
@@ -13,18 +13,22 @@ module.exports = {
         reply('You need an api key to access data')
       }
 
-      db.merchants.update({
-        business_id: request.payload.business_id
-      }, {
-        $addToSet: {
-          followers: request.payload.user_id
-        }
-      }, function (err, result) {
+      db.merchants.findAndModify({
+        query: { business_id: request.payload.business_id },
+        update: { $addToSet: { followers: request.payload.user_id } },
+        new: true
+      }, function (err, doc, lastErrorObject) {
         if (err) console.log(err)
-        reply({
-          message: 'follower added',
-          status: 1
-        })
+        db.promotions.update({
+          merchant_id: request.payload.business_id
+        }, {$set: { followers: doc.followers }},
+          function (error, result) {
+            if (error) console.log(error)
+            reply({
+              message: 'follower added',
+              status: 1
+            })
+          })
       })
     },
 
