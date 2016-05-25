@@ -22,7 +22,7 @@ module.exports = {
         if (err) console.log(err)
         db.promotions.update({
           merchant_id: request.payload.business_id
-        }, {$set: { followers: doc.followers }},
+        }, {$set: { followers: doc.followers }}, {multi: true},
           function (error, result) {
             if (error) console.log(error)
             reply({
