@@ -13,12 +13,10 @@ module.exports = {
         reply('You need an api key to access data')
       }
 
-      let queryObject = {}
-
       db.promo_categories.find({}, function (err, results) {
         if (err) console.log(err)
         reply({
-          results: results,
+          results: results
         })
       })
     },

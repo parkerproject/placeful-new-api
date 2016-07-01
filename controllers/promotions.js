@@ -21,36 +21,35 @@ module.exports = {
       let limit = request.query.limit || 20
       let count = 0
       let day = days[new Date().getDay()]
-      let categories = ['Food & Drinks', 'Health & Beauty', 'Events & Activities', 'Shopping']
       let currentTime = new Moment()
       currentTime = currentTime.format('HH:mm')
       let queryObject = {
         merchant_id: {
           $nin: ['pcCxqeV5C5O6OtpEqMhw'] // filter out promos by demo
-        }
+        },
+        approved: true
       }
-      if (request.query.cat_id) {
-        let selectedCategory = new RegExp(categories[request.query.cat_id], 'i')
-        queryObject.merchant_category = { $in: [selectedCategory]}
+      if (request.query.tab) {
+        queryObject.merchant_category = new RegExp(decodeURIComponent(request.query.tab), 'i')
       }
       if (request.query.merchant_locality && request.query.merchant_locality !== 'All') {
         let area = new RegExp(decodeURIComponent(request.query.merchant_locality), 'i')
         queryObject.merchant_locality = area
       }
-      if (request.query.tab === 'today') {
-        queryObject.start_date = {
-          $lte: new Moment().format()
-        }
-        queryObject.end_date = {
-          $gte: new Moment().format()
-        }
-        queryObject.days = new RegExp(day, 'i')
+      //  if (request.query.tab === 'today') {
+      queryObject.start_date = {
+        $lte: new Moment().format()
       }
-      if (request.query.tab === 'later') {
-        queryObject.end_date = {
-          $gt: new Moment().format()
-        }
+      queryObject.end_date = {
+        $gte: new Moment().format()
       }
+      queryObject.days = new RegExp(day, 'i')
+      //  }
+      // if (request.query.tab === 'later') {
+      //   queryObject.end_date = {
+      //     $gt: new Moment().format()
+      //   }
+      // }
       if (request.query.geo) {
         let lng = Number(request.query.geo.split(',')[0])
         let lat = Number(request.query.geo.split(',')[1])
@@ -86,8 +85,7 @@ module.exports = {
         offset: Joi.number().integer().description('defaults to 0'),
         geo: Joi.string().description('geo location of promotion, format should be geo=longitude,latitude'),
         user_id: Joi.string().required().description('id of user, we use this to match the right promotions to user'),
-        tab: Joi.any().valid('today', 'later').required().description('should be today or later, e.g tab=today'),
-        cat_id: Joi.string().description('category_id of promotion, you can find this value in {/categories} endpoint'),
+        tab: Joi.any().valid('happy hour', 'lunch', 'dinner', 'brunch', 'today', 'later').required().description('e.g tab=happy hour'),
         merchant_locality: Joi.string().description('where promotion is taking place')
       }
     }
