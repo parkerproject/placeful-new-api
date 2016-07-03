@@ -85,7 +85,7 @@ module.exports = {
         offset: Joi.number().integer().description('defaults to 0'),
         geo: Joi.string().description('geo location of promotion, format should be geo=longitude,latitude'),
         user_id: Joi.string().required().description('id of user, we use this to match the right promotions to user'),
-        tab: Joi.any().valid('happy hour', 'lunch', 'dinner', 'today', 'later').required().description('e.g tab=happy hour'),
+        tab: Joi.any().valid('happy hour', 'lunch', 'brunch', 'dinner', 'today', 'later').required().description('e.g tab=happy hour'),
         merchant_locality: Joi.string().description('where promotion is taking place')
       }
     }
