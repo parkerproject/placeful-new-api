@@ -15,7 +15,7 @@ module.exports = {
       let queryObject = {
         business_id: {
           $nin: ['dv8ySTnrbuB5nEEufY9p', 'pcCxqeV5C5O6OtpEqMhw'], // filter demo and admin places
-          approved: false
+          approved: true
         }
       }
       let skip = request.query.offset || 0
