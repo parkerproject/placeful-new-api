@@ -29,16 +29,14 @@ module.exports = {
               type: 'Point',
               coordinates: [lng, lat]
             }
-            // $maxDistance: 16093.4 // 10 miles
+          // $maxDistance: 16093.4 // 10 miles
           }
         }
       }
       db.merchants.count(queryObject, function (err, res) {
         if (err) console.log(err)
         count = res
-        db.merchants.find(queryObject).sort({
-          business_name: 1
-        }).skip(skip).limit(limit, function (err, results) {
+        db.merchants.find(queryObject).skip(skip).limit(limit, function (err, results) {
           if (err) console.log(err)
           reply({
             results: results,
