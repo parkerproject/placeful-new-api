@@ -52,9 +52,9 @@ module.exports = {
       thisHour = thisHour < 10 ? `0${thisHour}` : thisHour
       let thisTime = `${thisHour}:${thisMinute}` // time format in hh:mm
 
-      // queryObject.endTimeString = {
-      //   $gte: thisTime
-      // }
+      queryObject.endTimeString = {
+        $gte: thisTime
+      }
       //  }
       // if (request.query.tab === 'later') {
       //   queryObject.end_date = {
