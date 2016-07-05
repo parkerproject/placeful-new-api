@@ -19,16 +19,40 @@ module.exports = {
         new: true
       }, function (err, doc, lastErrorObject) {
         if (err) console.log(err)
-        db.promotions.update({
-          merchant_id: request.payload.business_id
-        }, {$set: { followers: doc.followers }}, {multi: true},
-          function (error, result) {
-            if (error) console.log(error)
-            reply({
-              message: 'follower added',
-              status: 1
+
+        if (!doc) {
+          db.promotions.find({merchant_id: request.payload.business_id },
+            {merchant_name: 1, _id: 0 }).limit(1, function (err, result) {
+            db.merchants.findAndModify({
+              query: { business_name: result[0].merchant_name },
+              update: { $addToSet: { followers: request.payload.user_id } },
+              new: true
+            }, function (error, doc, lastErrorObject) {
+              if (error) console.log(error)
+              db.promotions.update({
+                merchant_id: request.payload.business_id
+              }, {$set: { followers: doc.followers }}, {multi: true},
+                function (error, result) {
+                  if (error) console.log(error)
+                  reply({
+                    message: 'follower added',
+                    status: 1
+                  })
+                })
             })
           })
+        }else {
+          db.promotions.update({
+            merchant_id: request.payload.business_id
+          }, {$set: { followers: doc.followers }}, {multi: true},
+            function (error, result) {
+              if (error) console.log(error)
+              reply({
+                message: 'follower added',
+                status: 1
+              })
+            })
+        }
       })
     },
 
