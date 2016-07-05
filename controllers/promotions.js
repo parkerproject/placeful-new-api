@@ -8,7 +8,7 @@ const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 
 // let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 //
 // let day = days[new Date().getDay()]
-// const areas = ['All New York', 'Astoria', 'Brooklyn', 'Chelsea', 'East Village', 'Financial District', 'Flatiron', 'Gramercy', 'Greenwich Village', "Hell's Kitchen", 'Kips Bay', 'Lower East Side', 'Meatpacking District', 'Midtown East', 'Midtown West', 'Murray Hill', 'NoHo', 'Nolita', 'Park Slope', 'Queens', 'SoHo', 'Theater District', 'TriBeCa', 'Union Square', 'Upper East Side', 'Upper West Side', 'West Village', 'Williamsburg']
+const areas = require('./neighborhood')
 module.exports = {
   index: {
     handler: function (request, reply) {
@@ -32,6 +32,7 @@ module.exports = {
       if (request.query.tab) {
         queryObject.merchant_category = new RegExp(decodeURIComponent(request.query.tab), 'i')
       }
+
       if (request.query.merchant_locality && request.query.merchant_locality !== 'All') {
         let area = new RegExp(decodeURIComponent(request.query.merchant_locality), 'i')
         queryObject.merchant_locality = area
@@ -51,9 +52,9 @@ module.exports = {
       thisHour = thisHour < 10 ? `0${thisHour}` : thisHour
       let thisTime = `${thisHour}:${thisMinute}` // time format in hh:mm
 
-      queryObject.endTimeString = {
-        $gte: thisTime
-      }
+      // queryObject.endTimeString = {
+      //   $gte: thisTime
+      // }
       //  }
       // if (request.query.tab === 'later') {
       //   queryObject.end_date = {
