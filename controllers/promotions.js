@@ -30,7 +30,8 @@ module.exports = {
         approved: true
       }
       if (request.query.tab) {
-        queryObject.merchant_category = new RegExp(decodeURIComponent(request.query.tab), 'i')
+        let tab = new RegExp(decodeURIComponent(request.query.tab), 'i')
+        queryObject.merchant_category = { $in: [ tab ] }
       }
 
       if (request.query.merchant_locality && request.query.merchant_locality !== 'All') {
