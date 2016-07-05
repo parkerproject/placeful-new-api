@@ -44,6 +44,16 @@ module.exports = {
         $gte: new Moment().format()
       }
       queryObject.days = new RegExp(day, 'i')
+
+      let now = new Date()
+      let thisHour = now.getHours()
+      let thisMinute = now.getMinutes()
+      thisHour = thisHour < 10 ? `0${thisHour}` : thisHour
+      let thisTime = `${thisHour}:${thisMinute}` // time format in hh:mm
+
+      queryObject.endTimeString = {
+        $gte: thisTime
+      }
       //  }
       // if (request.query.tab === 'later') {
       //   queryObject.end_date = {
