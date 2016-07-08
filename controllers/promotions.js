@@ -26,16 +26,12 @@ module.exports = {
         },
         approved: true
       }
-      if (request.query.tab) {
-        let tab = new RegExp(decodeURIComponent(request.query.tab), 'i')
-        queryObject.merchant_category = { $in: [ tab ] }
-      }
 
       if (request.query.merchant_locality && request.query.merchant_locality !== 'All') {
         let area = new RegExp(decodeURIComponent(request.query.merchant_locality), 'i')
         queryObject.merchant_locality = area
       }
-      //  if (request.query.tab === 'today') {
+
       queryObject.start_date = {
         $lte: new Moment().format()
       }
@@ -53,12 +49,7 @@ module.exports = {
       queryObject.endTimeString = {
         $gte: thisTime
       }
-      //  }
-      // if (request.query.tab === 'later') {
-      //   queryObject.end_date = {
-      //     $gt: new Moment().format()
-      //   }
-      // }
+
       if (request.query.geo) {
         let lng = Number(request.query.geo.split(',')[0])
         let lat = Number(request.query.geo.split(',')[1])
