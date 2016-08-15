@@ -35,7 +35,8 @@
     "swig": "^1.4.2",
     "underscore": "^1.8.3",
     "vision": "^3.0.0",
-    "yelp": "^1.0.1"
+    "yelp": "^1.0.1",
+    "zomato": "^1.0.4"
   },
   "devDependencies": {
     "performance-now": "^0.2.0"
