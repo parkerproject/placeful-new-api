@@ -5,6 +5,7 @@ const db = mongojs.connect(process.env.MONGODB_URL, collections)
 const Joi = require('joi')
 const Moment = require('moment')
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+//const zomato = require('./zomato')
 
 module.exports = {
   index: {
@@ -59,21 +60,29 @@ module.exports = {
               type: 'Point',
               coordinates: [lng, lat]
             }
-          // $maxDistance: 16093.4 // 10 miles
+            $maxDistance: 16093.4 // 10 miles
           }
         }
       }
-      db.promotions.count(queryObject, function (err, res) {
+      // let cityObj = {
+      //   id: 280,
+      //   lat: request.query.lat,
+      //   lon: request.query.lon
+      // }
+      // zomato.getCuisines(cityObj, function (cuisines) {
+      //   reply(JSON.parse(cuisines))
+      // })
+    db.promotions.count(queryObject, function (err, res) {
+      if (err) console.log(err)
+      count = res
+      db.promotions.find(queryObject).skip(skip).limit(limit, function (err, results) {
         if (err) console.log(err)
-        count = res
-        db.promotions.find(queryObject).skip(skip).limit(limit, function (err, results) {
-          if (err) console.log(err)
-          reply({
-            results: results,
-            total_amount: count
-          })
+        reply({
+          results: results,
+          total_amount: count
         })
       })
+    })
     },
     description: 'View promotions',
     notes: 'view promotions',
@@ -85,7 +94,6 @@ module.exports = {
         offset: Joi.number().integer().description('defaults to 0'),
         geo: Joi.string().description('geo location of promotion, format should be geo=longitude,latitude'),
         user_id: Joi.string().required().description('id of user, we use this to match the right promotions to user'),
-        tab: Joi.any().valid('happy hour', 'lunch', 'brunch', 'dinner', 'today', 'later').description('e.g tab=happy hour'),
         merchant_locality: Joi.string().description('where promotion is taking place')
       }
     }
