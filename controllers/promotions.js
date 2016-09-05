@@ -36,8 +36,6 @@ module.exports = {
         user_id: Joi.string()
         .required()
         .description('id of user, match the right promotions to user'),
-        merchant_locality: Joi.string()
-        .description('where promotion is taking place'),
       },
     },
   },
