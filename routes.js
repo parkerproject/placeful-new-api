@@ -1,115 +1,119 @@
-var requireDirectory = require('require-directory')
+const requireDirectory = require('require-directory');
 module.exports = function (server) {
-  var controller = requireDirectory(module, './controllers')
+  const controller = requireDirectory(module, './controllers');
   // Array of routes for Hapi
-  var routeTable = [{
+  const routeTable = [{
     method: 'GET',
     path: '/images/{path*}',
-    config: controller.assets.images
+    config: controller.assets.images,
   }, {
     method: 'GET',
     path: '/css/{path*}',
-    config: controller.assets.css
+    config: controller.assets.css,
   }, {
     method: 'GET',
     path: '/js/{path*}',
-    config: controller.assets.js
+    config: controller.assets.js,
   }, {
     method: 'GET',
     path: '/video/{path*}',
-    config: controller.assets.video
+    config: controller.assets.video,
   }, {
     method: 'GET',
     path: '/promotions',
-    config: controller.promotions.index
+    config: controller.placeful_promotions.index,
   }, {
     method: 'GET',
     path: '/categories',
-    config: controller.categories.index
+    config: controller.categories.index,
   }, {
     method: 'GET',
     path: '/promotion',
-    config: controller.promotion.index
+    config: controller.promotion.index,
   }, {
     method: 'POST',
     path: '/promotion/like',
-    config: controller.promotion_like.index
+    config: controller.promotion_like.index,
   }, {
     method: 'DELETE',
     path: '/promotion/unlike',
-    config: controller.promotion_unlike.index
+    config: controller.promotion_unlike.index,
   }, {
     method: 'GET',
     path: '/places',
-    config: controller.places.index
+    config: controller.places.index,
   }, {
     method: 'GET',
     path: '/place',
-    config: controller.place.index
+    config: controller.place.index,
   }, {
     method: 'GET',
     path: '/place/promotions',
-    config: controller.place_promotions.index
+    config: controller.place_promotions.index,
   }, {
     method: 'POST',
     path: '/place/follow',
-    config: controller.follow.index
+    config: controller.follow.index,
   }, {
     method: 'DELETE',
     path: '/place/unfollow',
-    config: controller.unfollow.index
+    config: controller.unfollow.index,
   }, {
     method: 'GET',
     path: '/interests',
-    config: controller.interests.index
+    config: controller.interests.index,
   }, {
     method: 'POST',
     path: '/interests/user',
-    config: controller.interests_user.index
+    config: controller.interests_user.index,
   }, {
     method: 'GET',
     path: '/user/places',
-    config: controller.user_places.index
+    config: controller.user_places.index,
   }, {
     method: 'GET',
     path: '/user/likes',
-    config: controller.user_likes.index
+    config: controller.user_likes.index,
   }, {
     method: 'GET',
     path: '/notifications',
-    config: controller.notifications.index
+    config: controller.notifications.index,
   }, {
     method: 'GET',
     path: '/place/reviews',
-    config: controller.reviews.index
+    config: controller.reviews.index,
   }, {
     method: 'GET',
     path: '/user/tickets',
-    config: controller.tickets.index
+    config: controller.tickets.index,
   }, {
     method: 'POST',
     path: '/user/ticket',
-    config: controller.ticket.index
+    config: controller.ticket.index,
   }, {
     method: 'GET',
     path: '/user/ticket',
-    config: controller.user_ticket.index
+    config: controller.user_ticket.index,
   }, {
     method: 'DELETE',
     path: '/user/ticket',
-    config: controller.user_ticket_delete.index
+    config: controller.user_ticket_delete.index,
   }, {
     method: 'POST',
     path: '/email/welcome',
-    config: controller.email.welcome
+    config: controller.email.welcome,
   }, {
     method: 'POST',
     path: '/email/ticket',
-    config: controller.email.ticket
+    config: controller.email.ticket,
   }, {
     method: 'GET',
     path: '/areas',
-    config: controller.areas.index
-  }]
-  return routeTable
-}
+    config: controller.areas.index,
+  }, {
+    method: 'GET',
+    path: '/v2/promotions',
+    config: controller.promotions.index,
+  }];
+  return routeTable;
+};

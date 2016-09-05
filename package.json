@@ -29,16 +29,24 @@
     "querystring": "^0.2.0",
     "rand-token": "^0.2.1",
     "redis": "^0.12.1",
+    "request": "^2.74.0",
     "request-promise": "^0.4.0",
     "require-directory": "~2.0.0",
     "sendgrid": "^2.0.0",
+    "slug": "^0.9.1",
     "swig": "^1.4.2",
     "underscore": "^1.8.3",
     "vision": "^3.0.0",
     "yelp": "^1.0.1",
+    "yelp-v3": "0.0.5",
     "zomato": "^1.0.4"
   },
   "devDependencies": {
+    "eslint": "^3.4.0",
+    "eslint-config-airbnb": "^10.0.1",
+    "eslint-plugin-import": "^1.14.0",
+    "eslint-plugin-jsx-a11y": "^2.2.1",
+    "eslint-plugin-react": "^6.2.0",
     "performance-now": "^0.2.0"
   }
 }
