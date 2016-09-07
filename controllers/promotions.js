@@ -10,8 +10,11 @@ module.exports = {
       const options = {};
       options.offset = request.query.offset || 0;
       options.limit = request.query.limit || 20;
-      options.lng = Number(request.query.geo.split(',')[0]);
-      options.lat = Number(request.query.geo.split(',')[1]);
+      if (request.query.geo) {
+        options.lng = Number(request.query.geo.split(',')[0]);
+        options.lat = Number(request.query.geo.split(',')[1]);
+      }
+
 
       foursquarePromotions(options, (results, count) => {
         reply({ results, total_amount: count });
@@ -32,6 +35,7 @@ module.exports = {
         .integer()
         .description('defaults to 0'),
         geo: Joi.string()
+        .required()
         .description('geo location of promotion, geo=longitude,latitude'),
         user_id: Joi.string()
         .required()
