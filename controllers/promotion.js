@@ -11,18 +11,9 @@ module.exports = {
         reply('You need an api key to access data');
       }
 
-      const queryObj = {};
-
-      if (request.query.ticket_id) {
-        queryObj.ticket_id = request.query.ticket_id;
-      }
-
-
-      if (request.query.ticket_id) {
-        queryObj.deal_id = request.query.promotion_id;
-      }
-
-      db.promotions.find(queryObj).limit(1, (err, result) => {
+      db.promotions.find({
+        deal_id: request.query.promotion_id,
+      }).limit(1, (err, result) => {
         reply(result);
       });
     },
@@ -35,7 +26,6 @@ module.exports = {
       query: {
         key: Joi.string().required().description('API key to access data'),
         promotion_id: Joi.string().required().description('id of the promotion'),
-        ticket_id: Joi.number.description('ticket id of promotion'),
       },
     },
 
