@@ -1,7 +1,5 @@
 require('dotenv').load()
-const collections = ['tickets']
-const mongojs = require('mongojs')
-const db = mongojs.connect(process.env.MONGODB_URL, collections)
+const db = '../../db.js'
 const Joi = require('joi')
 const _ = require('lodash')
 

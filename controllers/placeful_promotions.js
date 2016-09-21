@@ -1,11 +1,8 @@
-'use strict';
-require('dotenv').load();
-const mongojs = require('mongojs');
 const Joi = require('joi');
 const Moment = require('moment');
+const db = require('../helpers/db');
 
-const collections = ['promotions'];
-const db = mongojs.connect(process.env.MONGODB_URL, collections);
+
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 module.exports = {
@@ -92,7 +89,6 @@ module.exports = {
         geo: Joi.string()
         .description('geo location of promotion, geo=longitude,latitude'),
         user_id: Joi.string()
-        .required()
         .description('id of user, match the right promotions to user'),
         merchant_locality: Joi.string()
         .description('where promotion is taking place'),

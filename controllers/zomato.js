@@ -1,18 +1,13 @@
-const zomato = require('zomato')
-const client = zomato.createClient({
-  userKey: process.env.ZOMATO_API_TOKEN
-})
+const axios = require('axios')
+
+const BASE_URL = 'https://developers.zomato.com/api/v2.1/search?';
+const KEY = process.env.ZOMATO_API_TOKEN;
 
 exports.search = function (obj, callback) {
-  client.search({
-    city_id: obj.id,
-    lat: obj.lat,
-    lon: obj.lon
-  }, function (err, result) {
-    if (!err) {
-      callback(result)
-    }else {
-      console.log(err)
-    }
-  })
+
+    axios.get(`${BASE_URL}lon=${obj.lon}&lat=${obj.lat}`, { headers: {'user-key': KEY} })
+    .then(response => {
+      callback(response.data);
+    })
+    .catch(err => console.log(err));
 }

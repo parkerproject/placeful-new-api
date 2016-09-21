@@ -112,8 +112,16 @@ module.exports = function (server) {
     config: controller.areas.index,
   }, {
     method: 'GET',
-    path: '/v2/promotions',
-    config: controller.promotions.index,
+    path: '/foursquare',
+    config: controller.foursquare_promotions.index,
+  }, {
+    method: 'GET',
+    path: '/yelp',
+    config: controller.yelp_promotions.index,
+  }, {
+    method: 'GET',
+    path: '/zomato',
+    config: controller.zomato_promotions.index,
   }];
   return routeTable;
 };
