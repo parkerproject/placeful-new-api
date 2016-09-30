@@ -23,10 +23,8 @@ module.exports = {
         approved: true,
       };
 
-      if (request.query.merchant_locality && request.query.merchant_locality !== 'undefined') {
-        const area = new RegExp(decodeURIComponent(request.query.merchant_locality), 'i');
-        queryObject.merchant_locality = area;
-      }
+      const area = new RegExp(decodeURIComponent(request.query.city), 'i');
+      queryObject.merchant_locality = area;
 
       queryObject.start_date = {
         $lte: new Moment().format(),
@@ -46,25 +44,12 @@ module.exports = {
         $gte: thisTime,
       };
 
-      if (request.query.geo) {
-        const lng = Number(request.query.geo.split(',')[0]);
-        const lat = Number(request.query.geo.split(',')[1]);
-        queryObject.loc = {
-          $near: {
-            $geometry: {
-              type: 'Point',
-              coordinates: [lng, lat],
-            },
-            // $maxDistance: 16093.4 // 10 miles
-          },
-        };
-      }
-
       db.promotions.count(queryObject, (err, res) => {
         if (err) console.log(err);
         count = res;
         db.promotions.find(queryObject).skip(skip).limit(limit, (error, results) => {
           if (error) console.log(error);
+          console.log(results);
           reply({
             results,
             total_amount: count,
@@ -72,8 +57,8 @@ module.exports = {
         });
       });
     },
-    description: 'View promotions',
-    notes: 'view promotions',
+    description: 'View promotions in a city',
+    notes: 'view promotions in a city',
     tags: ['api'],
     validate: {
       query: {
@@ -86,11 +71,10 @@ module.exports = {
         offset: Joi.number()
         .integer()
         .description('defaults to 0'),
-        geo: Joi.string()
-        .description('geo location of promotion, geo=longitude,latitude'),
         user_id: Joi.string()
         .description('id of user, match the right promotions to user'),
-        merchant_locality: Joi.string()
+        city: Joi.string()
+        .required()
         .description('where promotion is taking place'),
       },
     },

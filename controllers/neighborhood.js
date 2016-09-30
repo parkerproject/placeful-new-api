@@ -1,5 +1,5 @@
 module.exports = function () {
-  var areas = [
+  const areas = [
     'All',
     'Astoria',
     'Brooklyn',
@@ -28,8 +28,8 @@ module.exports = function () {
     'Upper East Side',
     'Upper West Side',
     'West Village',
-    'Williamsburg'
-  ]
+    'Williamsburg',
+  ];
 
-  return areas
-}
+  return areas;
+};

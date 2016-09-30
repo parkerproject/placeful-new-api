@@ -1,5 +1,5 @@
 const requireDirectory = require('require-directory');
-module.exports = function (server) {
+module.exports = (server) => {
   const controller = requireDirectory(module, './controllers');
   // Array of routes for Hapi
   const routeTable = [{
@@ -24,6 +24,10 @@ module.exports = function (server) {
     config: controller.placeful_promotions.index,
   }, {
     method: 'GET',
+    path: '/city/promotions',
+    config: controller.promotions_city.index,
+  }, {
+    method: 'GET',
     path: '/categories',
     config: controller.categories.index,
   }, {
@@ -35,9 +39,17 @@ module.exports = function (server) {
     path: '/promotion/like',
     config: controller.promotion_like.index,
   }, {
+    method: 'POST',
+    path: '/v2/promotion/like',
+    config: controller.promotion_like.v2,
+  }, {
     method: 'DELETE',
     path: '/promotion/unlike',
     config: controller.promotion_unlike.index,
+  }, {
+    method: 'POST',
+    path: '/v2/promotion/unlike',
+    config: controller.promotion_unlike.v2,
   }, {
     method: 'GET',
     path: '/places',
@@ -84,12 +96,20 @@ module.exports = function (server) {
     config: controller.reviews.index,
   }, {
     method: 'GET',
+    path: '/yelp/reviews',
+    config: controller.yelp_reviews.index,
+  }, {
+    method: 'GET',
     path: '/user/tickets',
     config: controller.tickets.index,
   }, {
     method: 'POST',
     path: '/user/ticket',
     config: controller.ticket.index,
+  }, {
+    method: 'POST',
+    path: '/v2/user/ticket',
+    config: controller.ticket.v2,
   }, {
     method: 'GET',
     path: '/user/ticket',
@@ -98,6 +118,10 @@ module.exports = function (server) {
     method: 'DELETE',
     path: '/user/ticket',
     config: controller.user_ticket_delete.index,
+  }, {
+    method: 'POST',
+    path: '/v2/delete/ticket',
+    config: controller.user_ticket_delete.v2,
   }, {
     method: 'POST',
     path: '/email/welcome',
@@ -120,8 +144,12 @@ module.exports = function (server) {
     config: controller.yelp_promotions.index,
   }, {
     method: 'GET',
-    path: '/zomato',
-    config: controller.zomato_promotions.index,
+    path: '/collections',
+    config: controller.zomato_promotions.collections,
+  }, {
+    method: 'GET',
+    path: '/collection',
+    config: controller.zomato_promotions.collection,
   }];
   return routeTable;
 };

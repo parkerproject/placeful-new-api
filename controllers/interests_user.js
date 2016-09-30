@@ -1,7 +1,7 @@
-require('dotenv').load()
-const db = '../../db.js'
-const Joi = require('joi')
-const _ = require('lodash')
+require('dotenv').load();
+const db = require('../helpers/db');
+const Joi = require('joi');
+const _ = require('lodash');
 const interests = [
   'food',
   'drinks',
@@ -16,52 +16,52 @@ const interests = [
   'afterwork',
   'wellness',
   'comedy',
-  'datenight'
-]
+  'datenight',
+];
 
 module.exports = {
   index: {
-    handler: function (request, reply) {
-      'use strict'
+    handler(request, reply) {
+      'use strict';
 
       if (!request.payload.key || request.payload.key !== process.env.API_KEY) {
-        reply('You need an api key to access data')
+        reply('You need an api key to access data');
       }
 
-      let selected_interests = request.payload.selected_interests
-      let user_id = request.payload.user_id
-      let unselected_interests = _.difference(interests, selected_interests)
+      const selected_interests = request.payload.selected_interests;
+      const user_id = request.payload.user_id;
+      const unselected_interests = _.difference(interests, selected_interests);
 
       unselected_interests.forEach((interest) => {
         db.interests.update({
-          name: interest
+          name: interest,
         }, {
           $pull: {
-            users: user_id
-          }
+            users: user_id,
+          },
         }, function (err, result) {
-          if (err) console.log(err)
-          console.log('user removed')
-        })
-      })
+          if (err) console.log(err);
+          console.log('user removed');
+        });
+      });
 
       selected_interests.forEach((interest) => {
         db.interests.update({
-          name: interest
+          name: interest,
         }, {
           $addToSet: {
-            users: user_id
-          }
+            users: user_id,
+          },
         }, function (err, result) {
-          if (err) console.log(err)
-          console.log('user added')
-        })
-      })
+          if (err) console.log(err);
+          console.log('user added');
+        });
+      });
 
       reply({
         message: 'user interests updated',
-        status: 1
-      })
+        status: 1,
+      });
     },
 
     description: 'User select interests',
@@ -72,9 +72,9 @@ module.exports = {
       payload: {
         key: Joi.string().required().description('API key to access data'),
         selected_interests: Joi.array().includes(Joi.string()).required().description('interests selected by user, should be an array, all in lowercase'),
-        user_id: Joi.string().required().description('id of user')
-      }
-    }
+        user_id: Joi.string().required().description('id of user'),
+      },
+    },
 
-  }
-}
+  },
+};

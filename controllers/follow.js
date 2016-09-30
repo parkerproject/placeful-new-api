@@ -1,57 +1,57 @@
-require('dotenv').load()
-const db = '../../db.js'
-const Joi = require('joi')
+require('dotenv').load();
+const db = require('../helpers/db');
+const Joi = require('joi');
 
 module.exports = {
   index: {
-    handler: function (request, reply) {
-      'use strict'
+    handler(request, reply) {
+      'use strict';
 
       if (!request.payload.key || request.payload.key !== process.env.API_KEY) {
-        reply('You need an api key to access data')
+        reply('You need an api key to access data');
       }
 
       db.merchants.findAndModify({
         query: { business_id: request.payload.business_id },
         update: { $addToSet: { followers: request.payload.user_id } },
-        new: true
+        new: true,
       }, function (err, doc, lastErrorObject) {
-        if (err) console.log(err)
+        if (err) console.log(err);
 
         if (!doc) {
-          db.promotions.find({merchant_id: request.payload.business_id },
-            {merchant_name: 1, _id: 0 }).limit(1, function (err, result) {
-            db.merchants.findAndModify({
-              query: { business_name: result[0].merchant_name },
-              update: { $addToSet: { followers: request.payload.user_id } },
-              new: true
-            }, function (error, doc, lastErrorObject) {
-              if (error) console.log(error)
-              db.promotions.update({
-                merchant_id: request.payload.business_id
-              }, {$set: { followers: doc.followers }}, {multi: true},
+          db.promotions.find({ merchant_id: request.payload.business_id },
+            { merchant_name: 1, _id: 0 }).limit(1, function (err, result) {
+              db.merchants.findAndModify({
+                query: { business_name: result[0].merchant_name },
+                update: { $addToSet: { followers: request.payload.user_id } },
+                new: true,
+              }, function (error, doc, lastErrorObject) {
+                if (error) console.log(error);
+                db.promotions.update({
+                  merchant_id: request.payload.business_id,
+                }, { $set: { followers: doc.followers } }, { multi: true },
                 function (error, result) {
-                  if (error) console.log(error)
+                  if (error) console.log(error);
                   reply({
                     message: 'follower added',
-                    status: 1
-                  })
-                })
-            })
-          })
-        }else {
+                    status: 1,
+                  });
+                });
+              });
+            });
+        } else {
           db.promotions.update({
-            merchant_id: request.payload.business_id
-          }, {$set: { followers: doc.followers }}, {multi: true},
+            merchant_id: request.payload.business_id,
+          }, { $set: { followers: doc.followers } }, { multi: true },
             function (error, result) {
-              if (error) console.log(error)
+              if (error) console.log(error);
               reply({
                 message: 'follower added',
-                status: 1
-              })
-            })
+                status: 1,
+              });
+            });
         }
-      })
+      });
     },
 
     description: 'Follow a place',
@@ -62,10 +62,10 @@ module.exports = {
       payload: {
         key: Joi.string().required().description('API key to access data'),
         business_id: Joi.string().required().description('id of a place'),
-        user_id: Joi.string().required().description('id of a user')
-      }
-    }
+        user_id: Joi.string().required().description('id of a user'),
+      },
+    },
 
-  }
+  },
 
-}
+};

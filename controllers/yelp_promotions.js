@@ -48,21 +48,21 @@ function Item(response) {
 module.exports = {
   index: {
     handler: (request, reply) => {
-
       if (!request.query.key || request.query.key !== process.env.API_KEY) {
-        reply('You need an api key to access data')
-      }else{
+        reply('You need an api key to access data');
+      } else {
         const term = encodeURIComponent(request.query.term);
-        const longitude = request.query.longitude;
-        const latitude = request.query.latitude;
+        const longitude = request.query.lon;
+        const latitude = request.query.lat;
         const categories = 'restaurants,bars';
         const offset = request.query.offset || 0;
         const sort_by = 'distance';
         const open_now = true;
-        yelp.search({ term, latitude, longitude, categories, offset, sort_by, open_now }, (error, data) => {
+        yelp.search({ term, latitude, longitude, categories, offset, sort_by, open_now }, 
+        (error, data) => {
           if (error) console.log(error);
           const modifiedArr = data.businesses.map(item => new Item(item));
-          reply({results:modifiedArr, count: data.total});
+          reply({ results: modifiedArr, count: data.total });
         });
       }
     },

@@ -1,14 +1,12 @@
 require('dotenv').load();
-const zomato = require('./zomato.js');
+const zomato = require('./zomato');
 const slug = require('slug');
 const randtoken = require('rand-token');
 
-function hastags(str){
-    var e = str.split(',')
-    var hasTags = e.map(function(tag){
-       return `#${tag.trim()} `
-    });
-    return hasTags.join('');
+function hastags(str) {
+  const e = str.split(',');
+  const hasTags = e.map(tag => `#${tag.trim()} `);
+  return hasTags.join('');
 }
 
 function Item(response) {
@@ -53,19 +51,50 @@ function Item(response) {
 module.exports = {
   index: {
     handler: (request, reply) => {
-
       if (!request.query.key || request.query.key !== process.env.API_KEY) {
-        reply('You need an api key to access data')
-      }else{
-        const obj = {}
+        reply('You need an api key to access data');
+      } else {
+        const obj = {};
         obj.lon = request.query.longitude;
         obj.lat = request.query.latitude;
 
         zomato.search(obj, (data) => {
-          const restaurants = data.restaurants.map((restaurant)=>{
-            return new Item(restaurant.restaurant)
-          });
-          reply(restaurants)
+          const restaurants = data.restaurants.map(restaurant => new Item(restaurant.restaurant));
+          reply(restaurants);
+        });
+      }
+    },
+  },
+
+  collections: {
+    handler: (request, reply) => {
+      if (!request.query.key || request.query.key !== process.env.API_KEY) {
+        reply('You need an api key to access data');
+      } else {
+        const obj = {};
+        obj.lon = request.query.longitude;
+        obj.lat = request.query.latitude;
+
+        zomato.collection(obj, (data) => {
+          reply(data.collections);
+        });
+      }
+    },
+  },
+
+  collection: {
+    handler: (request, reply) => {
+      if (!request.query.key || request.query.key !== process.env.API_KEY) {
+        reply('You need an api key to access data');
+      } else {
+        const obj = {};
+        obj.cId = request.query.cId;
+        obj.count = request.query.limit;
+        obj.lat = request.query.lat || 0;
+        obj.lon = request.query.lon || 0;
+
+        zomato.collectionSearch(obj, (data) => {
+          reply(data.restaurants);
         });
       }
     },

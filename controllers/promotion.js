@@ -1,6 +1,6 @@
 require('dotenv').load();
 
-const db = '../../db.js';
+const db = require('../helpers/db');
 const Joi = require('joi');
 
 
