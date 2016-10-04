@@ -1,4 +1,5 @@
 const requireDirectory = require('require-directory');
+
 module.exports = (server) => {
   const controller = requireDirectory(module, './controllers');
   // Array of routes for Hapi
@@ -22,6 +23,10 @@ module.exports = (server) => {
     method: 'GET',
     path: '/promotions',
     config: controller.placeful_promotions.index,
+  }, {
+    method: 'GET',
+    path: '/v2/promotions',
+    config: controller.placeful_promotions.v2,
   }, {
     method: 'GET',
     path: '/city/promotions',
