@@ -156,7 +156,7 @@ module.exports = (server) => {
     path: '/collection',
     config: controller.zomato_promotions.collection,
   }, {
-    method: 'GET',
+    method: 'POST',
     path: '/treck',
     config: controller.treck.index,
   }];
