@@ -1,8 +1,9 @@
-const Hapi = require('hapi')
-const Inert = require('inert')
-const Vision = require('vision')
-const path = require('path')
-const HapiSwagger = require('hapi-swagger')
+const Hapi = require('hapi');
+const Inert = require('inert');
+const Vision = require('vision');
+const path = require('path');
+const HapiSwagger = require('hapi-swagger');
+const hapiCors = require('hapi-cors');
 const swaggerOptions = {
   apiVersion: '1.0.0'
 }
@@ -23,8 +24,8 @@ server.register([
   Inert,
   Vision,
   {
-    register: HapiSwagger,
-    options: swaggerOptions
+    register: [HapiSwagger, hapiCors],
+    options: swaggerOptions,
   }], function (err) {
   server.views({
     path: './views',
