@@ -4,20 +4,24 @@ const Vision = require('vision');
 const path = require('path');
 const HapiSwagger = require('hapi-swagger');
 const hapiCors = require('hapi-cors');
+
 const swaggerOptions = {
-  apiVersion: '1.0.0'
-}
-const server = new Hapi.Server()
+  apiVersion: '1.0.0',
+  origins: ['http://localhost:3000'],
+};
+
+const server = new Hapi.Server();
 server.connection({
   host: '0.0.0.0',
-  port: 1400
-})
+  port: 1400,
+});
 
-const routes = require('./routes')(server)
-global.appRoot = path.resolve(__dirname)
+const routes = require('./routes')(server);
+
+global.appRoot = path.resolve(__dirname);
 
 // Export the server to be required elsewhere.
-module.exports = server
+module.exports = server;
 
 // Start the server
 server.register([
