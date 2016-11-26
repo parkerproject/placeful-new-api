@@ -33,7 +33,7 @@ module.exports = function (merchant, cb) {
           request(sUrl, (err, resp, data) => {
             if (err) console.log(err);
             if (!err && resp.statusCode === 200) {
-              const tips = JSON.parse(data).resp.tips.items;
+              const tips = JSON.parse(data).resp? JSON.parse(data).resp.tips.items : '';
               resolve(tips); // Show the HTML for the Google homepage.
             }
           });
