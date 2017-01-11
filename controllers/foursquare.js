@@ -4,7 +4,7 @@ const request = require('request');
 
 const baseUrl = 'https://api.foursquare.com/v2/venues/search?';
 
-module.exports = function (merchant, cb) {
+module.exports = (merchant, cb) => {
   const url = baseUrl + qs.stringify({
     client_id: process.env.FOURSQUARE_CLIENTIDKEY,
     client_secret: process.env.FOURSQUARE_CLIENTSECRETKEY,
@@ -12,6 +12,8 @@ module.exports = function (merchant, cb) {
     intent: 'global',
     query: merchant,
   });
+
+  console.log(url);
 
   new Promise((resolve) => {
     request(url, (error, response, body) => {
@@ -33,7 +35,7 @@ module.exports = function (merchant, cb) {
           request(sUrl, (err, resp, data) => {
             if (err) console.log(err);
             if (!err && resp.statusCode === 200) {
-              const tips = JSON.parse(data).resp? JSON.parse(data).resp.tips.items : '';
+              const tips = JSON.parse(data).resp ? JSON.parse(data).resp.tips.items : '';
               resolve(tips); // Show the HTML for the Google homepage.
             }
           });
