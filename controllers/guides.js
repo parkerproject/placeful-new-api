@@ -10,17 +10,20 @@ module.exports = {
       const limit = request.query.limit || 20;
       const queryObject = {};
 
-      const lng = Number(request.query.geo.split(',')[0]);
-      const lat = Number(request.query.geo.split(',')[1]);
-      queryObject.loc = {
-        $near: {
-          $geometry: {
-            type: 'Point',
-            coordinates: [lng, lat],
+      if (request.query.geo) {
+        const lng = Number(request.query.geo.split(',')[0]);
+        const lat = Number(request.query.geo.split(',')[1]);
+        queryObject.loc = {
+          $near: {
+            $geometry: {
+              type: 'Point',
+              coordinates: [lng, lat],
+            },
+              // $maxDistance: 16093.4 // 10 miles
           },
-            // $maxDistance: 16093.4 // 10 miles
-        },
-      };
+        };
+      }
+
 
       const query = db.guides.find(queryObject);
 
