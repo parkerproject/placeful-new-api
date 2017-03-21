@@ -1,6 +1,6 @@
 const requireDirectory = require('require-directory');
 
-module.exports = (server) => {
+module.exports = () => {
   const controller = requireDirectory(module, './controllers');
   // Array of routes for Hapi
   const routeTable = [{
@@ -155,6 +155,10 @@ module.exports = (server) => {
     method: 'GET',
     path: '/collection',
     config: controller.zomato_promotions.collection,
+  }, {
+    method: 'GET',
+    path: '/guides',
+    config: controller.guides.index,
   }];
   return routeTable;
 };

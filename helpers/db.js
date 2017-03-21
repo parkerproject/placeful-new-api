@@ -8,7 +8,7 @@ const collections = ['merchants',
 'interests',
 'notifications',
 'tickets',
-'treck',
+'placeful',
 ];
 
 const db = mongojs(process.env.MONGODB_URL, collections);
