@@ -1,6 +1,5 @@
 const db = require('../helpers/db');
 
-
 module.exports = {
   index: {
     handler(request, reply) {

@@ -11,6 +11,10 @@ module.exports = () => {
     method: 'GET',
     path: '/guides',
     config: controller.guides.index,
+  }, {
+    method: 'POST',
+    path: '/guide/places/new',
+    config: controller.add_place.index,
   }];
   return routeTable;
 };
