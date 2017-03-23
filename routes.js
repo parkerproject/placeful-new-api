@@ -15,6 +15,14 @@ module.exports = () => {
     method: 'POST',
     path: '/guide/places/new',
     config: controller.add_place.index,
+  }, {
+    method: 'POST',
+    path: '/guide/like/add',
+    config: controller.guide_like.index,
+  }, {
+    method: 'POST',
+    path: '/guide/like/remove',
+    config: controller.guide_unlike.index,
   }];
   return routeTable;
 };

@@ -5,14 +5,13 @@ const db = require('../helpers/db');
 module.exports = {
   index: {
     handler(request, reply) {
-      // get user interests and match with promotions tags
       const page = request.query.page || 1;
       const limit = request.query.limit || 20;
       const queryObject = {};
 
       if (request.query.geo) {
-        const lng = Number(request.query.geo.split(',')[0]);
-        const lat = Number(request.query.geo.split(',')[1]);
+        const lng = Number(request.query.lng);
+        const lat = Number(request.query.lat);
         queryObject.loc = {
           $near: {
             $geometry: {
