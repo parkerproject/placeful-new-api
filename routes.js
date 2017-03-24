@@ -23,6 +23,15 @@ module.exports = () => {
     method: 'POST',
     path: '/guide/like/remove',
     config: controller.guide_unlike.index,
-  }];
+  },
+    {
+      method: 'GET',
+      path: '/user/guides',
+      config: controller.user_guides.index,
+    }, {
+      method: 'GET',
+      path: '/user/likes',
+      config: controller.user_likes.index,
+    }];
   return routeTable;
 };
