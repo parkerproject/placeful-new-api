@@ -13,10 +13,6 @@ module.exports = () => {
     config: controller.guides.index,
   }, {
     method: 'POST',
-    path: '/guide/places/new',
-    config: controller.add_place.index,
-  }, {
-    method: 'POST',
     path: '/guide/like/add',
     config: controller.guide_like.index,
   }, {
