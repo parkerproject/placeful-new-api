@@ -28,6 +28,10 @@ module.exports = () => {
       method: 'GET',
       path: '/user/likes',
       config: controller.user_likes.index,
+    }, {
+      method: 'POST',
+      path: '/guide/delete',
+      config: controller.guide_delete.index,
     }];
   return routeTable;
 };
