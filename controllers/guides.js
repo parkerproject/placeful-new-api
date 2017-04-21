@@ -9,7 +9,11 @@ module.exports = {
       const limit = request.query.limit || 20;
       const queryObject = {};
 
-      if (request.query.geo) {
+	  if(request.query.filter){
+	  	queryObject.cat = request.query.filter
+	  }
+
+      if (request.query.lng && request.query.lat) {
         const lng = Number(request.query.lng);
         const lat = Number(request.query.lat);
         queryObject.loc = {
