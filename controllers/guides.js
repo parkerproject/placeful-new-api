@@ -22,7 +22,7 @@ module.exports = {
               type: 'Point',
               coordinates: [lng, lat],
             },
-             $maxDistance: 64373.6 // 40 miles
+			$maxDistance: 32186.8 // 20 miles
           },
         };
       }
