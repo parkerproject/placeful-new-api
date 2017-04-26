@@ -3,7 +3,8 @@ const db = require('../helpers/db');
 module.exports = {
   index: {
     handler(request, reply) {
-      db.guides.save(request.payload, () => {
+      const guide = Object.assign({}, request.payload, { public: true });
+      db.guides.save(guide, () => {
         reply(1);
       });
     },

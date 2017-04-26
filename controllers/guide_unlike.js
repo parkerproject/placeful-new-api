@@ -1,5 +1,10 @@
 require('dotenv').load();
+const algoliasearch = require('algoliasearch');
+
 const db = require('../helpers/db');
+
+const client = algoliasearch(process.env.ALGOLIA_APPLICATION_ID, process.env.ALGOLIA_API_KEY);
+const index = client.initIndex('guides');
 
 module.exports = {
   index: {
@@ -12,7 +17,15 @@ module.exports = {
         new: true,
       }, (error, doc) => {
         if (error) console.log(error);
-        reply(doc);
+        index.partialUpdateObject({
+          likes: {
+            value: user,
+            _operation: 'Remove',
+          },
+          objectID: key,
+        }, (err, content) => {
+          reply(doc);
+        });
       });
     },
   },
