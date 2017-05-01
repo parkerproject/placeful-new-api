@@ -32,6 +32,10 @@ module.exports = () => {
       method: 'POST',
       path: '/guide/delete',
       config: controller.guide_delete.index,
+    }, {
+      method: 'POST',
+      path: '/guide/update',
+      config: controller.guide_update.index,
     }];
   return routeTable;
 };
