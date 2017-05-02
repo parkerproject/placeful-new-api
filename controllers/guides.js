@@ -7,10 +7,10 @@ module.exports = {
     handler(request, reply) {
       const page = request.query.page || 1;
       const limit = request.query.limit || 20;
-      const queryObject = {};
+      const queryObject = { public: true };
 
-	  if(request.query.filter){
-	  	queryObject.cat = request.query.filter
+	  if (request.query.filter) {
+	  	queryObject.cat = request.query.filter;
 	  }
 
       if (request.query.lng && request.query.lat) {
@@ -22,7 +22,7 @@ module.exports = {
               type: 'Point',
               coordinates: [lng, lat],
             },
-			$maxDistance: 32186.8 // 20 miles
+            $maxDistance: 32186.8, // 20 miles
           },
         };
       }
