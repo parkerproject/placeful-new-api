@@ -3,9 +3,12 @@ const db = require('../helpers/db');
 module.exports = {
   index: {
     handler(request, reply) {
-      const { title, description, user, key } = request.payload;
+      const { title, description, user, key, image } = request.payload;
       const query = { user, key };
       const update = { title, description };
+      if (image) {
+        update.image = image;
+      }
 
       db.guides.findAndModify({
         query,
