@@ -7,11 +7,11 @@ module.exports = {
     handler(request, reply) {
       const page = request.query.page || 1;
       const limit = request.query.limit || 20;
-      const queryObject = { public: true };
+      const queryObject = { private: false };
 
-	  if (request.query.filter) {
-	  	queryObject.cat = request.query.filter;
-	  }
+      if (request.query.filter) {
+        queryObject.cat = request.query.filter;
+      }
 
       if (request.query.lng && request.query.lat) {
         const lng = Number(request.query.lng);
