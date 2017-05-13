@@ -7,7 +7,7 @@ module.exports = {
     handler(request, reply) {
       const page = request.query.page || 1;
       const limit = request.query.limit || 20;
-      const queryObject = { private: false };
+      const queryObject = { public: true };
 
       if (request.query.filter) {
         queryObject.cat = request.query.filter;
