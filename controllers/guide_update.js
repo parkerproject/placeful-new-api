@@ -5,7 +5,7 @@ module.exports = {
     handler(request, reply) {
       const { title, description, user, key, image } = request.payload;
       const query = { user, key };
-      const update = { title, description };
+      const update = { title, description, public: request.payload.public };
       if (image) {
         update.image = image;
       }
