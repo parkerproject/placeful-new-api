@@ -8,7 +8,7 @@ module.exports = {
       const page = request.query.page || 1;
       const limit = request.query.limit || 20;
 
-      const query = db.guides.find({ likes: request.query.user }).sort({ created_at: 1 });
+      const query = db.guides.find({ likes: request.query.user }).sort({ created_at: -1 });
 
       paginate(query, {
         limit,
