@@ -1,4 +1,9 @@
+const algoliasearch = require('algoliasearch');
+
 const db = require('../helpers/db');
+
+const client = algoliasearch(process.env.ALGOLIA_APPLICATION_ID, process.env.ALGOLIA_API_KEY);
+const index = client.initIndex('guides');
 
 module.exports = {
   index: {
@@ -17,7 +22,17 @@ module.exports = {
       }, (err) => {
         if (err) console.log(err);
         db.guides.find({ user }, (error, userGuides) => {
-          reply(userGuides);
+          if (error) console.log(error);
+
+          index.partialUpdateObject({
+            title,
+            description,
+            public: request.payload.public,
+            objectID: key,
+          }, (er) => {
+            console.log(er);
+            reply(userGuides);
+          });
         });
       });
     },
