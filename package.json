@@ -18,11 +18,14 @@
     "concurrently": "^3.4.0",
     "cross-env": "^3.1.4",
     "dotenv": "^4.0.0",
+    "fb": "^2.0.0",
     "forever": "^0.15.3",
     "hapi": "^10.1.0",
+    "lodash": "^4.17.4",
     "mongojs": "^2.4.0",
     "mongojs-paginate": "^1.2.0",
-    "require-directory": "~2.0.0"
+    "require-directory": "~2.0.0",
+    "unirest": "^0.5.1"
   },
   "devDependencies": {
     "eslint": "^3.4.0",

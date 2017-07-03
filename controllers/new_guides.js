@@ -9,28 +9,16 @@ module.exports = {
       const limit = request.query.limit || 20;
       const queryObject = { public: true };
 
-      if (request.query.filter) {
-        queryObject.cat = request.query.filter;
-      }
-
       if (request.query.lng && request.query.lat) {
         const lng = Number(request.query.lng);
         const lat = Number(request.query.lat);
         queryObject.loc = {
-          $near: {
-            $geometry: {
-              type: 'Point',
-              coordinates: [lng, lat],
-            },
-            $maxDistance: 32186.8, // 20 miles
-          },
-        //  $geoWithin: { $center: [[lng, lat], 10] },
+          $geoWithin: { $center: [[lng, lat], 10] },
         };
       }
 
 
-      const query = db.guides.find(queryObject);
-
+      const query = db.guides.find(queryObject).sort({ created_at: -1 });
 
       paginate(query, {
         limit,

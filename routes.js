@@ -12,6 +12,10 @@ module.exports = () => {
     path: '/guides',
     config: controller.guides.index,
   }, {
+    method: 'GET',
+    path: '/guides/new',
+    config: controller.new_guides.index,
+  }, {
     method: 'POST',
     path: '/guide/like/add',
     config: controller.guide_like.index,
@@ -36,6 +40,14 @@ module.exports = () => {
       method: 'POST',
       path: '/guide/update',
       config: controller.guide_update.index,
+    }, {
+      method: 'GET',
+      path: '/fb',
+      config: controller.facebook_places.index,
+    }, {
+      method: 'GET',
+      path: '/yelp/phone',
+      config: controller.yelp.index,
     }];
   return routeTable;
 };
