@@ -24,7 +24,6 @@ module.exports = {
             },
             $maxDistance: 32186.8, // 20 miles
           },
-        //  $geoWithin: { $center: [[lng, lat], 10] },
         };
       }
 

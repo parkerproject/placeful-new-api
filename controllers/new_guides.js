@@ -13,7 +13,10 @@ module.exports = {
         const lng = Number(request.query.lng);
         const lat = Number(request.query.lat);
         queryObject.loc = {
-          $geoWithin: { $center: [[lng, lat], 10] },
+        //  $geoWithin: { $center: [[lng, lat], 10] },
+          $near: {
+            $geometry: { type: 'Point', coordinates: [lng, lat] },
+          },
         };
       }
 
