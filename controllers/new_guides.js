@@ -16,6 +16,7 @@ module.exports = {
         //  $geoWithin: { $center: [[lng, lat], 10] },
           $near: {
             $geometry: { type: 'Point', coordinates: [lng, lat] },
+            $maxDistance: 32186.8, // 20 miles = 32186.8
           },
         };
       }
