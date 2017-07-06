@@ -15,6 +15,11 @@ const client = tumblr.createClient({
 
 exports.createGuideOnTumblr = (doc) => {
   const { image, title, hastags, cat, key } = doc;
+
+  if (!doc.public) {
+    return false;
+  }
+
   const slug = getSlug(title);
   const options = {
     source: image,
