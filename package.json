@@ -25,6 +25,8 @@
     "mongojs": "^2.4.0",
     "mongojs-paginate": "^1.2.0",
     "require-directory": "~2.0.0",
+    "speakingurl": "^13.0.0",
+    "tumblr.js": "^1.1.1",
     "unirest": "^0.5.1"
   },
   "devDependencies": {
