@@ -27,11 +27,13 @@ exports.createGuideOnTumblr = (doc) => {
     link: `https://placefulapp.com/m/${key}/${slug}`,
   };
 
-  if (hastags) {
-    options.tags = hastags;
-  }
+
   if (!hastags && cat) {
     options.tags = !isArray(cat) ? cat : cat.toString();
+  }
+
+  if (hastags) {
+    options.tags = hastags.split(' ').join(',');
   }
 
   client.createPhotoPost('placefulapp', options, (error) => {
