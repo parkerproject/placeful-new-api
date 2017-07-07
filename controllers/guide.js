@@ -7,7 +7,7 @@ module.exports = {
     handler(request, reply) {
       const guide = Object.assign({}, request.payload);
       db.guides.save(guide, () => {
-        createGuideOnTumblr(guide);
+        createGuideOnTumblr(guide); // temporary, will move this to event emitter or some async flow
         reply(1);
       });
     },
