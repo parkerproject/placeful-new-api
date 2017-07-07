@@ -24,30 +24,30 @@ module.exports = () => {
     path: '/guide/like/remove',
     config: controller.guide_unlike.index,
   },
-  {
-    method: 'GET',
-    path: '/user/guides',
-    config: controller.user_guides.index,
-  }, {
-    method: 'GET',
-    path: '/user/likes',
-    config: controller.user_likes.index,
-  }, {
-    method: 'POST',
-    path: '/guide/delete',
-    config: controller.guide_delete.index,
-  }, {
-    method: 'POST',
-    path: '/guide/update',
-    config: controller.guide_update.index,
-  }, {
-    method: 'GET',
-    path: '/fb',
-    config: controller.facebook_places.index,
-  }, {
-    method: 'GET',
-    path: '/yelp/phone',
-    config: controller.yelp.index,
-  }];
+    {
+      method: 'GET',
+      path: '/user/guides',
+      config: controller.user_guides.index,
+    }, {
+      method: 'GET',
+      path: '/user/likes',
+      config: controller.user_likes.index,
+    }, {
+      method: 'POST',
+      path: '/guide/delete',
+      config: controller.guide_delete.index,
+    }, {
+      method: 'POST',
+      path: '/guide/update',
+      config: controller.guide_update.index,
+    }, {
+      method: 'GET',
+      path: '/fb',
+      config: controller.facebook_places.index,
+    }, {
+      method: 'GET',
+      path: '/yelp/phone',
+      config: controller.yelp.index,
+    }];
   return routeTable;
 };

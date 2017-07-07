@@ -1,6 +1,6 @@
 const db = require('../helpers/db');
 
-const { createGuideOnTumblr } = './handle_social';
+const { createGuideOnTumblr } = require('./handle_social');
 
 module.exports = {
   index: {
