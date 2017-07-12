@@ -4,7 +4,7 @@
   "description": "placeful api",
   "main": "app.js",
   "engines": {
-    "node": "7.7.4"
+    "node": "7.10.1"
   },
   "scripts": {
     "start": "forever --minUptime 1000 --spinSleepTime 1000 -c \"node --harmony\" ./app.js",
