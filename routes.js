@@ -48,6 +48,10 @@ module.exports = () => {
       method: 'GET',
       path: '/yelp/phone',
       config: controller.yelp.index,
+    }, {
+      method: 'GET',
+      path: '/week/places',
+      config: controller.places_of_week.index,
     }];
   return routeTable;
 };

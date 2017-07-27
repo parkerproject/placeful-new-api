@@ -22,6 +22,7 @@
     "forever": "^0.15.3",
     "hapi": "^10.1.0",
     "lodash": "^4.17.4",
+    "moment": "^2.18.1",
     "mongojs": "^2.4.0",
     "mongojs-paginate": "^1.2.0",
     "require-directory": "~2.0.0",
